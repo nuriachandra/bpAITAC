@@ -1,0 +1,9 @@
+.9
+trial type is complete
+logs/BP31_5_L0_0.9/complete/11-13-2023.19.08.txt
+loss function: CompositeLoss
+number of filters: 3000
+bin size: 5 with bin type maxpool
+n scalar head layers: 3
+before if statement
+in else statement

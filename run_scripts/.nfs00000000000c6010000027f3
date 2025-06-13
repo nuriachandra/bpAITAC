@@ -1,0 +1,120 @@
+#!/bin/bash
+  
+# This file contains the script needed to train the AI-TAC model for mm10 mouse data
+# Make sure conda ai-tac is activated before running code 
+
+cd ..
+
+# cluster="hyak"
+cluster="chelan"
+
+hyak_data_dir="/gscratch/mostafavilab/nchand/data/"
+hyak_info_file_dir="/gscratch/mostafavilab/nchand/bpAITAC/data_train_test/"
+data_dir=$hyak_data_dir
+info_file_dir=$hyak_info_file_dir
+results_dir="/gscratch/mostafavilab/nchand/results/"
+celltypes=$data_dir"ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.celltypes.npy"
+
+if [ $cluster == "chelan" ]
+then
+    chelan_data_dir="/data/nchand/"
+    chelan_info_dir="/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/"
+    data_dir=$chelan_data_dir
+    info_file_dir=$chelan_info_dir
+    results_dir="/homes/gws/nchand/MostafaviLab/results/"
+    celltypes="/data/nchand/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.celltypes.npy"
+fi
+
+seq_len=1000 
+
+# UPDATE model 
+# model='BPnetRep' 
+# model='CNN0'
+model='BPnetRep'
+
+name="BP4_L-14" 
+trial_type="complete" # either sample of complete
+model_name=$name"/"$trial_type 
+
+# WHERE FILES WILL BE SAVED
+tstamp=$(date "+%m-%d-%Y.%H.%M")
+error_dir="logs/"${model_name}"/"${tstamp}".txt"
+mkdir -p "logs/"${model_name}
+echo $error_dir
+
+output_dir=$results_dir${model}"/"${model_name}
+mkdir -p $results_dir${model}"/"${model_name}
+
+
+# loss_fxn="PoissonNLLLoss"
+# loss_fxn="MSELoss"
+loss_fxn="CompositeLoss"
+num_epochs="35"
+lambda="0.000000000000001" # (only used when loss function is composite)
+bias="True" # must be 'True' or 'False'
+
+start_time=$(date +%s)
+
+if [ "$trial_type" = "sample" ]; then
+
+    ### FOR SMALL SAMPLE ###
+    # info_file="/gscratch/mostafavilab/nchand/bpAITAC/data_train_test/sample_normalized_250center/correct_bias/memmap/info.txt"
+    # python train.py $info_file $celltypes $seq_len $name $model
+
+    # Sample data 1000 OCR normalized on center 250
+    # info_file="/gscratch/mostafavilab/nchand/bpAITAC/data_train_test/sample_normalized_250center/correct_bias_1000/memmap/info.txt"
+    # python train.py $info_file $celltypes $seq_len $name $model $output_dir $loss_fxn $num_epochs $lambda #> $error_dir 2>&1
+
+    # # Sample data 1000 OCR, normalized on center 250, total counts from OCR center 250
+    # info_file=$info_file_dir"sample_normalized_250center_1.17.23/memmap/info.txt" 
+    # python train.py $info_file $celltypes $seq_len $name $model $output_dir $loss_fxn $num_epochs $lambda $bias #> $error_dir 2>&1
+
+    # # Sample 20,000 OCR NOT NORMALIZED. With bias off-by-two correction. Not yet sure about alignment
+    seq_len=998
+    celltypes=$info_file_dir"sample_bias_corrected_normalized_3.7.23/memmap/cell_names.npy"
+    info_file=$info_file_dir"sample_bias_corrected_normalized_3.7.23/memmap/info.txt" 
+    python train.py $info_file $celltypes $seq_len $name $model $output_dir $loss_fxn $num_epochs $lambda $bias > $error_dir 2>&1
+else
+    # UNCOMMENT BELOW TO RUN FULL DATA 
+    # info_file="/gscratch/mostafavilab/nchand/bpAITAC/data_train_test/complete_normalized_250center/memmap/info.txt"
+    # python train.py $info_file $celltypes $seq_len $name $model $output_dir $loss_fxn $num_epochs $lambda $bias > $error_dir 2>&1
+
+    # Full data with the total counts from the OCR
+    # info_file="/gscratch/mostafavilab/nchand/bpAITAC/data_train_test/complete_12.29.22/memmap/info.txt"
+    # python train.py $info_file $celltypes $seq_len $name $model $output_dir $loss_fxn $num_epochs $lambda $bias > $error_dir 2>&1 
+
+    # Full data with the quantile normalized counts and total counts from the OCR
+    # CORRECTED FOR off-by-two
+    seq_len=998
+    info_file=$info_file_dir"complete_bias_corrected_normalized_3.7.23/memmap/info.txt"
+    python train.py $info_file $celltypes $seq_len $name $model $output_dir $loss_fxn $num_epochs $lambda $bias > $error_dir 2>&1 
+fi
+
+end_time=$(date +%s)
+elapsed=$(( end_time - start_time ))
+
+cat << EOF  >> $output_dir"/run_details.txt"
+$tstamp
+$error_dir
+model: $model
+$name $trial_type
+Elapsed time: $(date -ud "@$elapsed" +'$((%s/3600/24)) days %H hr %M min %S sec')
+Loss function: $loss_fxn
+${num_epochs} epochs
+Bias added ${bias}
+EOF
+
+if [ "$loss_fxn" = "CompositeLoss" ]; then
+cat <<- EOF  >> "$output_dir/run_details.txt"
+    lambda: $lambda
+EOF
+fi
+
+# add newline at the end of entry in details.txt
+cat <<- EOF  >> $output_dir"/run_details.txt" 
+
+EOF
+
+
+
+echo Done with training script
