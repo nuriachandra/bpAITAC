@@ -1,0 +1,32 @@
+name: bpaitac
+channels:
+  - pytorch
+  - anaconda
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - matplotlib
+  - pandas
+  - biopython
+  - scipy
+  - seaborn
+  - scikit-learn
+  - anaconda::jupyter
+  - openpyxl
+  - nbconvert
+  - texlive-core
+  - fastcluster
+  - pip:
+    - importlib-metadata
+    - joblib
+    - llvmlite
+    - logomaker==0.8
+    - numba
+    - pybigwig
+    - pyfaidx
+    - scikit-learn
+    - tangermeme==0.4.1
+    - threadpoolctl
+    - tqdm
+    - zipp
