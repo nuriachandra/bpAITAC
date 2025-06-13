@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 import torch.nn.functional as F # to allow us to define layers
-from modules import Body, Head
+from models.modules import Body, Head
 from typing import List # use to specify list type
 
 class BPnetRep(nn.Module):

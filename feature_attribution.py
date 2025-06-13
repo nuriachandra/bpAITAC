@@ -1,4 +1,4 @@
-from load_model import load_model
+from utils.load_model import load_model
 from eval_model import get_model_structure
 from tangermeme.utils import random_one_hot
 from tangermeme.deep_lift_shap import deep_lift_shap

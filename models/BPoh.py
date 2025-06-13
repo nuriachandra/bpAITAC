@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 import torch.nn.functional as F # to allow us to define layers
-from modules import Body, BasePairHead
+from models.modules import Body, BasePairHead
 from typing import List # use to specify list type
 
 

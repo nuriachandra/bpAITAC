@@ -7,14 +7,15 @@ from typing import List # use to specify list type
 from typing import Optional
 import numpy as np
 from typing import Tuple, Dict
-from utils import load_data_non_memmaped
+from utils.inference_utils import load_data_non_memmaped
 import os
 import pickle
 from torch.utils.data import DataLoader, TensorDataset
 from models.BPnetRep import BPnetRep
 from models.BPmultimax import BPmultimax
 from models.BPcm import BPcm
-from bpAITAC.models.bpAITAC import BPcm_250
+from models.bpAITAC import bpAITAC
+from models.BPcm_250 import BPcm_250
 from models.BPbi import BPbi
 from models.BPbi_shallow import BPbi_shallow
 from models.BPcm_bias0 import BPcm_bias0
@@ -25,25 +26,21 @@ from models.BPol import BPol
 from models.BPmp import BPmp
 from models.BPcm_skinny import BPcm_skinny
 from models.BPcm_super_skinny import BPcm_super_skinny
-from EarlyStopping import EarlyCorrelationStopping
-from EarlyStopping import EarlyStopping
+from utils.EarlyStopping import EarlyCorrelationStopping, EarlyStopping
 import time
 import copy
 import datetime
 import sys
 import json
-from plot_results import plot_training_val_loss
-from functions import JSD, pearson_corr, ocr_pearson_corr
-from load_model import model_analysis
-from MemmapDataset import MemmapDataset 
+from plotting.plot_results import plot_training_val_loss
+from  utils.functions import JSD, pearson_corr, ocr_pearson_corr
+from  utils.load_model import model_analysis
+from  utils.MemmapDataset import MemmapDataset 
 import pandas as pd
-import shutil 
-from modules import CompositeLoss, ProfileBasedLoss, CompositeLossBalanced, CompositeLossBalancedJSD, CompositeLossMNLL, Bin, CompositeLossMSE, PoissonLoss, MSEDoubleBP, MSEDoubleProfile
-from bpAITAC.utils.LogResults import LogResults
+from  models.modules import CompositeLoss, ProfileBasedLoss, CompositeLossBalanced, CompositeLossBalancedJSD, CompositeLossMNLL, Bin, CompositeLossMSE, PoissonLoss, MSEDoubleBP, MSEDoubleProfile
+from utils.LogResults import LogResults
 from typing import Literal
-from plot_utils_bpaitac import ocr_mask
-from plot_results import plot_profile
-import random
+from plotting.plot_utils_bpaitac import ocr_mask
 
 LRSchedulerType = Literal[
     "StepLR",
@@ -653,6 +650,8 @@ def main():
     model = BPcm(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers)
   elif model_name == 'BPcm_250':
     model = BPcm_250(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers, off_by_two=args.off_by_two)
+  elif model_name == 'bpAITAC':
+    model = bpAITAC(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers, off_by_two=args.off_by_two)
   elif model_name == 'BPcm_bias0':
     model = BPcm_bias0(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers)
   elif model_name == 'BPcm_biasRandom':

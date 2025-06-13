@@ -2,17 +2,21 @@
 
 This code base is designed for creating and exploring deep learning models which predict ATAC-seq profiles and ATAC-seq total OCR counts from gene sequences. The current best functioning model is BPcm. The code for the model can be found in BPcm.py. The components of this model can be found in modules.py. 
 
-## Data
+## Requirements
+The packages required to run bpAITAC are included in `environment.yml`. In addition you will need to install pytorch. For results reported in the publication we use `pytorch-cuda=12.4`. You can intall pytorch using pip from `https://pytorch.org/get-started/locally/` 
+
+# Data
 The input data for this model must be 'memmaped'. The already prepared data can be found in ```/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23``` in the Chelan lab cluster. The models are designed to load in data based on an info.txt file that is located in the same folder as all of the memmory-mapped data files. 
 
 The celltype data path is ```/data/nchand/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.celltypes.npy```
 
-## Training
+# Training
+
+## Training bpAITAC
 
 train.py is used for training. run_scripts/train_script.sh is an example of a script that can be used to run train.py
 
-```
-python train.py info_file celltypes_file seq_len name model output_dir loss_fxn num_epochs lambda bias n_filters ocr_eval batch_size learning_rate
+```python train.py info_file celltypes_file seq_len name model output_dir loss_fxn num_epochs lambda bias n_filters ocr_eval batch_size learning_rate
 ```
 Arguments:
   1. info_file: path to the info.txt file in the folder produced by prep_data 
@@ -34,9 +38,11 @@ Arguments:
 
   Example
 
+  ```python train.py info_file_path celltypes_file_path 1000 BP17_L-1_0.7 BPcm output_dir CompositeLoss 50 0.7 True 300 True 20 0.001
   ```
-python train.py info_file_path celltypes_file_path 1000 BP17_L-1_0.7 BPcm output_dir CompositeLoss 50 0.7 True 300 True 20 0.001
-  ```
+
+  ## Training the Tn5 bias model
+  TODO 
 
 ## Loading the Model
 Use the load_model function in load_model.py. 

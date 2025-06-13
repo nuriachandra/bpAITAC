@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 from typing import Union
-from BPcm import BPcm
+from models.BPcm import BPcm
 from BPnetRep import BPnetRep
 
 class AttributionModelWrapper(nn.Module):

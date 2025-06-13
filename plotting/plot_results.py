@@ -6,22 +6,17 @@ import numpy as np
 import os
 import sys
 import argparse
-from BPnetRep import BPnetRep
-import CNN_0
-from BPme import BPme
-from MemmapDataset import MemmapDataset 
+from utils.MemmapDataset import MemmapDataset 
 import pandas as pd
-from functions import JSD, pearson_corr, elementwise_pearson_corr, JSD_numpy, softmax_numpy
-import seaborn
-from plot_utils import plot_cors
+from utils.functions import JSD, pearson_corr, elementwise_pearson_corr, JSD_numpy, softmax_numpy
 from matplotlib.colors import LogNorm
 from scipy.stats import gaussian_kde, pearsonr
 from matplotlib.patches import FancyBboxPatch
 from eval_model import eval_model
-from utils import load_data, get_least_utilized_gpu
+from utils.inference_utils import load_data, get_least_utilized_gpu
 
 
-from load_model import get_predictions, model_analysis, get_model, load_model
+from utils.load_model import get_predictions, model_analysis, get_model, load_model
 from scipy.stats import gaussian_kde
 
 def plot_training_val_loss(training_file:str, val_file:str, output_file_path:str, num_epochs:int, loss_type:str, model_name: str, title:str):

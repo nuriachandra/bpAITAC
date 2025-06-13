@@ -1,12 +1,12 @@
 import os
-from combine_results import find_files
+from plotting.combine_results import find_files
 from eval_model import get_model_structure
 import numpy as np
-from utils import load_names, load_observed
+from utils.inference_utils import load_names, load_observed
 from plot_utils_bpaitac import histogram
-from region_identification_utils import get_trial_metrics, identify_regions, summary_stats
+from utils.region_identification_utils import get_trial_metrics, identify_regions, summary_stats
 import pandas as pd
-from load_model import get_model, get_predictions, load_model
+from utils.load_model import get_model, get_predictions, load_model
 import scipy
 import matplotlib.pyplot as plt
 import torch

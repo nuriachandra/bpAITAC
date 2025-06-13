@@ -1,8 +1,8 @@
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
-from utils import load_observed
-from functions import coefficient_of_variation
+from utils.inference_utils import load_observed
+from utils.functions import coefficient_of_variation
 
 # This method returns a mask over celltypes: returns indices
 #  for the one with the largest value for each peak

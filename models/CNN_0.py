@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.data
-from modules import ProfileHead, ScalarHead
+from models.modules import ProfileHead, ScalarHead
 import math
 import copy
 

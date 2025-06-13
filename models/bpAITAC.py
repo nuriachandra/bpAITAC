@@ -1,10 +1,10 @@
 import torch
 from torch import nn
 import torch.nn.functional as F # to allow us to define layers
-from modules import Body, ProfileHead, ScalarHeadMultiMaxpool, ScalarHeadConvMaxpool
+from models.modules import Body, ProfileHead, ScalarHeadMultiMaxpool, ScalarHeadConvMaxpool
 from typing import List # use to specify list type
 
-class BPcm_250(nn.Module):
+class bpAITAC(nn.Module):
     """
     This model uses BPnetRep body with 300 filters (as the default)
     and the the ScalarHeadMultiMaxpool head for scalar head
@@ -14,7 +14,7 @@ class BPcm_250(nn.Module):
     scalar_head_fc_layers is for the ScalarHeadConvMaxpool. Traditionally was 1
     """
     def __init__(self, seq_len:int, num_filters:int=300, n_celltypes:int=90, bin_size:int = 1, bin_pooling_type:nn.Module=nn.MaxPool1d, scalar_head_fc_layers:int=1, off_by_two:bool=True):
-        super(BPcm_250, self).__init__()
+        super(bpAITAC, self).__init__()
 
         self.profile_out_len = 250
         self.off_by_two = off_by_two

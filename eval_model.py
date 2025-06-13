@@ -9,19 +9,20 @@ Arguments:
 import argparse
 import numpy as np
 import matplotlib.pyplot as plt
-from load_model import model_analysis_from_saved_model, get_predictions, load_model, load_data
-from plot_utils_bpaitac import histogram
+from utils.load_model import model_analysis_from_saved_model, get_predictions, load_model, load_data
+from plotting.plot_utils_bpaitac import histogram
 import os
-from BPcm import BPcm
-from BPcm_250 import BPcm_250
-from BPbi import BPbi
-from BPbi_shallow import BPbi_shallow
-from BPnetRep import BPnetRep
-from BPol import BPol
-from BPcm_skinny import BPcm_skinny
-from BPmp import BPmp
-from BPcm_super_skinny import BPcm_super_skinny
-from BPcm_bias0 import BPcm_bias0
+from models.BPcm import BPcm
+from models.bpAITAC import bpAITAC
+from models.BPcm_250 import BPcm_250
+from models.BPbi import BPbi
+from models.BPbi_shallow import BPbi_shallow
+from models.BPnetRep import BPnetRep
+from models.BPol import BPol
+from models.BPcm_skinny import BPcm_skinny
+from models.BPmp import BPmp
+from models.BPcm_super_skinny import BPcm_super_skinny
+from models.BPcm_bias0 import BPcm_bias0
 
 
 def parse_arguments():
@@ -137,6 +138,8 @@ def eval_model(saved_model_path, n_celltypes, n_filters, infofile_path,
 def get_model_structure(model_type:str, n_filters, n_celltypes, bin_size=1, seq_len=998, off_by_two=True):
     if model_type == "BPcm":
         return BPcm(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, scalar_head_fc_layers=1)
+    if model_type == "bpAITAC":
+        return bpAITAC(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, scalar_head_fc_layers=1, off_by_two=off_by_two)
     if model_type == "BPcm_250":
         return BPcm_250(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, scalar_head_fc_layers=1, off_by_two=off_by_two)
     elif model_type == "BPcm_bias0":
