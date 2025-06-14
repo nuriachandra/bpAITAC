@@ -287,13 +287,6 @@ def train(
             top_ocr_celltype_mask = ocr_mask(total_counts) 
             running_top_ocr_jsd += torch.sum(current_ocr_jsd[torch.arange(current_ocr_jsd.size(0)), top_ocr_celltype_mask]).item()
 
-
-          # track pearson correlation between predicted and actual bp_counts
-          # I was not doing the divided bp counts! They were scalled differently
-          # bp_corr = torch.mean(pearson_corr(profile, bp_counts, dim=2), dim=1) # find correlation across sequences, take mean across cell types
-          # running_bp_corr += torch.sum(bp_corr).item() # sum of correlations for every OCR in the batch
-          # running_ocr_bp_corr += torch.sum(torch.mean(pearson_corr(profile[:, :, ocr_start:ocr_end], bp_counts[:, :, ocr_start:ocr_end], dim=2), dim=1))
-
           # start training model with backward and optimize only after the zeroth epoch
           if (epoch != 0):
             optimizer.zero_grad()
@@ -440,22 +433,6 @@ def getBestModelResults(model:nn.Module, val_loader, output_dir, seq_len=1000, n
            jsd=jsd, ocr_profile_corr=OCR_profile_corr, ocr_jsd=OCR_jsd, 
            top_ocr_profile_corr=top_ocr_profile_corr, top_ocr_jsd=top_ocr_jsd)
   return scalar_corr, profile_corr, jsd, OCR_profile_corr, OCR_jsd, top_ocr_profile_corr, top_ocr_jsd 
-  # with torch.no_grad():
-  #   model.eval()
-  #   for i, (seqs, bp_counts, total_counts, seq_bias) in enumerate(val_loader):
-  #     seqs = seqs.to(DEVICE)
-  #     if bias_model:
-  #       bias = torch.squeeze(seq_bias).to(DEVICE) # the squeezing to work with current head setup
-  #     else: bias = torch.from_numpy(np.zeros(shape=(seq_bias.size(dim=0), seq_len))).to(DEVICE)
-  #     profile, scalar = model(seqs, bias)
-
-  #     profile_predictions = torch.cat((profile_predictions, profile.type(torch.FloatTensor)), 0)
-  #     scalar_predictions = torch.cat((scalar_predictions, scalar.type(torch.FloatTensor)), 0)
-  #     obs_total_counts = torch.cat((total_counts, total_counts.type(torch.FloatTensor)), 0)
-  #     obs_bp_counts = torch.cat((bp_counts, total_counts.type(torch.FloatTensor)), 0)
-
-      # to save compute, what if we compute the metrics in this batch form without having to actually save the 
-      # bp level metrics. I think it will save a lot of data 
 
 def select_best_gpu():
   if not torch.cuda.is_available():
