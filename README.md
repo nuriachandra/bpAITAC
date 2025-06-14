@@ -22,7 +22,7 @@ train.py is used for training bpAITAC. Below is an example of how to train bpAIT
 ## Training the Tn5 bias model
 We train the Tn5 bias model in an almost identical way to bpAITAC. However, a few model modifications are necessary to account for the single-track nature of training the Tn5 bias data. 
 
-1. To prep the data to train the bias model, use `preprocessing/prep_data_bias.py`
+1. To prep the data to train the bias model, use `preprocessing/prep_data_bias.py`. Then make a config file from the data. This will need to have the same format as `example_data/data_config.yaml`
 2. To train the Tn5 bias model, use the `train.py` script with the `--model_name BPbi` 
 3. To compute the logits from the Tn5 bias model which can then be fed into training bpAITAC, use `preprocessing/prep_get_bias_logits.py`
 
