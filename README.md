@@ -1,6 +1,8 @@
 # bpAITAC
 
-This code base is designed for creating and exploring deep learning models which predict ATAC-seq profiles and ATAC-seq total OCR counts from gene sequences. The current best functioning model is BPcm. The code for the model can be found in BPcm.py. The components of this model can be found in modules.py. 
+This code base is designed for creating and exploring deep learning models which predict ATAC-seq profiles and ATAC-seq total OCR counts from gene sequences. We present bpAITAC, a new SOTA model for immunological ATAC-seq data modeling using base-pair resolution data. 
+
+bioRxiv: https://www.biorxiv.org/content/10.1101/2025.01.24.634804v1 
 
 ## Requirements
 The packages required to run bpAITAC are included in `environment.yml`. In addition you may need to install pytorch. For results reported in the publication we use `pytorch-cuda=12.4`. You can intall pytorch using pip from `https://pytorch.org/get-started/locally/` 
