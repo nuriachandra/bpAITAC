@@ -14,8 +14,7 @@ Due to the large size of base-pair resultion data, the fullscale input data for 
 
 train.py is used for training bpAITAC. Below is an example of how to train bpAITAC on the toy example data provided in `example_data/`
 
-```python train.py --info_file example_data/data_config.yaml --celltypes_path  example_data/cell_names.npy --name bpAITAC_example --model_name bpAITAC --output_path example_data --seq_len 998 --memmaped_data False --num_epochs=10
-```
+`python train.py --info_file example_data/data_config.yaml --celltypes_path  example_data/cell_names.npy --name bpAITAC_example --model_name bpAITAC --output_path example_data --seq_len 998 --memmaped_data False --num_epochs=10`
 
 
 ## Training the Tn5 bias model
