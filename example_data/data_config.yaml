@@ -1,0 +1,20 @@
+# Base directory path
+base_path: example_data
+# Training data paths
+train_bias: example_data/train_bias.npy
+train_onehot: example_data/train_onehot.npy
+train_bp_counts: example_data/train_bp_counts.npy
+train_total_counts: example_data/train_total_counts.npy
+train_names: example_data/train_peak_names.npy
+# Validation data paths
+val_bias: example_data/validation_bias.npy
+val_onehot: example_data/validation_onehot.npy
+val_bp_counts: example_data/validation_bp_counts.npy
+val_total_counts: example_data/validation_total_counts.npy
+val_names: example_data/validation_peak_names.npy
+# Test data paths
+test_bias: example_data/test_bias.npy
+test_onehot: example_data/test_onehot.npy
+test_bp_counts: example_data/test_bp_counts.npy
+test_total_counts: example_data/test_total_counts.npy
+test_names: example_data/test_peak_names.npy

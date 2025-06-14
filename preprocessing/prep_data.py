@@ -294,15 +294,6 @@ if __name__ == '__main__':
             args.required_args[6], off_by_two, ocr_only,
             args.lineage_filepath, args.selected_lineage, args.cell_names_filepath)
 
-  # aitac_settings = sys.argv[6] == 'True'
-  # off_by_two = sys.argv[8] == 'True'
-  # ocr_only = sys.argv[9] == 'True'
-  # lineage_filepath = sys.argv[10]# ex 'immgen_lineages.csv' how do I make this optional?
-  # selected_lineage = sys.argv[11] # how do I make this optional??? 
-  # print(sys.argv)
-  # prep_data(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], 
-  #           aitac_settings, sys.argv[7], off_by_two, ocr_only)
-
 
 # aitac_settings = False
 # python prep_data.py /data/nchand/mm10/mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz 

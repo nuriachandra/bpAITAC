@@ -110,66 +110,6 @@ def split_data(onehot_counts_matching, total_counts, bias, counts_quantile_norma
 
 
 
-# def split_data(onehot_counts_matching, total_counts, bias, counts_quantile_normalized, 
-#                names_matching, test_size=0.1, random_state=42):
-#     """
-#     Split all arrays into training and validation sets using the same indices.
-    
-#     Args:
-#         onehot_counts_matching: numpy array of onehot encodings
-#         total_counts: numpy array of total counts
-#         bias: numpy array of bias values
-#         counts_quantile_normalized: numpy array of normalized counts
-#         names_matching: list of matching names
-#         test_size: fraction of data to use for validation (default: 0.2)
-#         random_state: random seed for reproducibility (default: 42)
-    
-#     Returns:
-#         tuple: (train_onehot, val_onehot, 
-#                 train_total_counts, val_total_counts,
-#                 train_bias, val_bias, 
-#                 train_counts_norm, val_counts_norm,
-#                 train_names, val_names)
-#     """
-#     # Generate indices for the split
-#     indices = np.arange(len(total_counts))
-    
-#     # Split indices
-#     train_indices, val_indices = train_test_split(
-#         indices,
-#         test_size=test_size,
-#         random_state=random_state
-#     )
-    
-#     # Split each array using the same indices
-#     train_onehot = onehot_counts_matching[train_indices]
-#     val_onehot = onehot_counts_matching[val_indices]
-    
-#     train_total_counts = total_counts[train_indices]
-#     val_total_counts = total_counts[val_indices]
-    
-#     train_bias = bias[train_indices]
-#     val_bias = bias[val_indices]
-    
-#     train_counts_norm = counts_quantile_normalized[train_indices]
-#     val_counts_norm = counts_quantile_normalized[val_indices]
-    
-#     # Split the names using the same indices
-#     names_matching = np.array(names_matching)  # Convert to numpy array for indexing
-#     train_names = names_matching[train_indices]
-#     val_names = names_matching[val_indices]
-    
-#     # Print split information
-#     print(f"\nData split summary:")
-#     print(f"Training samples: {len(train_indices)}")
-#     print(f"Validation samples: {len(val_indices)}")
-    
-#     return (train_onehot, val_onehot,
-#             train_total_counts, val_total_counts,
-#             train_bias, val_bias,
-#             train_counts_norm, val_counts_norm,
-#             train_names, val_names)
-
 
 def sort_onehot_by_count_names(names_onehot, onehot, names_counts):
     """
@@ -437,7 +377,7 @@ def main():
     bias = np.zeros_like(counts)
     # counts_quantile_normalized = quantile_norm(counts) don't need to quantile normalize just one track
 
-    # now I have to filter all of the regions with <10 counts
+    # now we have to filter all of the regions with <10 counts
     # remove all the regions with <10 counts from onehot_counts_matching, total_counts, counts_quantile_normalized, bias, names_matching
     # Filter low count regions
     (filtered_onehot, filtered_total_counts, 
@@ -496,16 +436,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-
 # example usage to prep the bias counts from the closed region counts 
 # python prep_data_bias.py --onehot_npz /data/nchand/mm10/mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz --counts_npz /data/mostafavilab/ImgenATAC/ImmGen-log10pvaluesgt0.25_counts250bp_combined.npz --output_dir /data/nchand/ImmGen/mouse/bias/tn5_bias_counts250bp_combined_filtered_11.2.24 
-# python prep_data_bias.py --onehot_npz /data/nchand/mm10/mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz --counts_npz /data/mostafavilab/ImgenATAC/ImmGen-log10pvaluesgt0.25_counts250bp_combined.npz --output_dir /data/nchand/ImmGen/mouse/bias/tn5_bias_counts250bp_combined_filtered_11.2.24   --sample
-
-# with the protein free dna
-# python prep_data_bias.py --onehot_npz /data/mostafavilab/ImgenATAC/Tn5biasBuenrostro2022/hg38selectedBACs_gt6avgcount_N500000bp1200_onehot-ACGT_alignleft.npz  --counts_npz /data/mostafavilab/ImgenATAC/Tn5biasBuenrostro2022/selectedBACs_gt6avgcount_N500000bp1200_counts.npz --output_dir /data/nchand/ImmGen/mouse/bias/selectedBACs_gt6avgcount_N500000bp_filtered_1.2.25  --validation_names /data/mostafavilab/ImgenATAC/Tn5biasBuenrostro2022/selectedBACs_gt6avgcount_N500000bp1200_testset.txt
-# python prep_data_bias.py --onehot_npz /data/mostafavilab/ImgenATAC/Tn5biasBuenrostro2022/hg38selectedBACs_gt6avgcount_N500000bp1200_onehot-ACGT_alignleft.npz  --counts_npz /data/mostafavilab/ImgenATAC/Tn5biasBuenrostro2022/selectedBACs_gt6avgcount_N500000bp1200_counts.npz --output_dir /data/nchand/ImmGen/mouse/bias/selectedBACs_gt6avgcount_N500000bp_filtered_11.2.24  
-# python prep_data_bias.py --onehot_npz /data/mostafavilab/ImgenATAC/Tn5biasBuenrostro2022/hg38selectedBACs_gt6avgcount_N500000bp1200_onehot-ACGT_alignleft.npz  --counts_npz /data/mostafavilab/ImgenATAC/Tn5biasBuenrostro2022/selectedBACs_gt6avgcount_N500000bp1200_counts.npz --output_dir /data/nchand/ImmGen/mouse/bias/selectedBACs_gt6avgcount_N500000bp_filtered_11.2.24_sample --sample 
-
-# with protein free 250 
-# python prep_data_bias.py --onehot_npz /data/mostafavilab/ImgenATAC/Tn5biasBuenrostro2022/hg38selectedBACs_N500000bp250_onehot-ACGT_alignleft.npz --counts_npz /data/mostafavilab/ImgenATAC/Tn5biasBuenrostro2022/selectedBACs_N500000bp250_counts.npz --output_dir /data/nchand/ImmGen/mouse/bias/selectedBACs_gt6avgcount_N500000bp250_11.2.24 
-# python prep_data_bias.py --onehot_npz /data/mostafavilab/ImgenATAC/Tn5biasBuenrostro2022/hg38selectedBACs_N500000bp250_onehot-ACGT_alignleft.npz --counts_npz /data/mostafavilab/ImgenATAC/Tn5biasBuenrostro2022/selectedBACs_N500000bp250_counts.npz --output_dir /data/nchand/ImmGen/mouse/bias/selectedBACs_gt6avgcount_N500000bp250_11.2.24_sample --sample

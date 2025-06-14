@@ -197,6 +197,12 @@ def load_observed(info_file, dataset_type: DatasetType, data_name: DataNames):
       "validation": 11
   }
 
+  names_row_map = {
+      "train": 0,
+      "test": 5,
+      "validation": 10
+  }
+
   if data_name == 'total_counts':
     dataset_row_map = total_counts_row_map
   elif data_name == 'onehot':
@@ -205,8 +211,10 @@ def load_observed(info_file, dataset_type: DatasetType, data_name: DataNames):
     dataset_row_map = bias_row_map
   elif data_name == 'bp_counts':
     dataset_row_map = bp_counts_row_map
+  elif data_name == 'peak_names':
+    dataset_row_map = names_row_map
   else:
-    TypeError("Unsupported data_name. This method may not be yet complete")
+    print(data_name, "Unsupported data_name. This method may not be yet complete")
     return
   
   # Get the row index based on the dataset_type

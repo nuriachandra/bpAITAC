@@ -529,7 +529,7 @@ def set_seed():
     
 def main():
   """
-  This function is called to train the BPnetRep model
+  This function is called to train the bpAITAC model
 
   Arguments:
   1) info_file: path to the info.txt file in the folder produced by prep_data 
@@ -557,27 +557,27 @@ def main():
   """
   
   parser = argparse.ArgumentParser(description='Train BPnetRep model')
-  parser.add_argument('info_file', help='Path to the info.txt file')
-  parser.add_argument('celltypes_path', help='Path to celltypes numpy file')
-  parser.add_argument('seq_len', type=int, help='Length of sequences in base pairs')
-  parser.add_argument('name', help='Version name of the model being tested')
-  parser.add_argument('model_name', help='Name of the torch.nn model class')
-  parser.add_argument('output_path', help='Output directory path')
-  parser.add_argument('loss_fxn', help='Loss function name')
-  parser.add_argument('num_epochs', type=int, help='Number of epochs')
-  parser.add_argument('_lambda', type=float, help='Lambda weight on profile head')
-  parser.add_argument('bias', help='Boolean for including bias')
-  parser.add_argument('n_filters', type=int, help='Number of filters in model body')
-  parser.add_argument('ocr_eval', help='Boolean for OCR region evaluation')
-  parser.add_argument('bin_size', type=int, help='Bin size')
-  parser.add_argument('bin_pooling_type', help='Bin pooling type')
-  parser.add_argument('scalar_head_fc_layers', type=int, help='Number of scalar head FC layers')
-  parser.add_argument('batch_size', type=int, help='Batch size')
-  parser.add_argument('learning_rate', type=float, help='Learning rate')
-  parser.add_argument('lr_scheduler_name', help='Learning rate scheduler name')
-  parser.add_argument('lr_scheduler_args', help='Learning rate scheduler arguments as JSON')
-  parser.add_argument('set_fixed_seed', help='Boolean for setting fixed seed')
-  parser.add_argument('memmaped_data', help='Boolean for using memmaped data')
+  parser.add_argument('--info_file', help='Path to the info.txt file', required=True)
+  parser.add_argument('--celltypes_path', help='Path to celltypes numpy file', required=True)
+  parser.add_argument('--seq_len', type=int, help='Length of sequences in base pairs', required=True)
+  parser.add_argument('--name', help='Version name of the model being tested', required=True)
+  parser.add_argument('--model_name', help='Name of the torch.nn model class', default='BPcm_250')
+  parser.add_argument('--output_path', help='Output directory path', required=True)
+  parser.add_argument('--loss_fxn', help='Loss function name', default='PoissonLoss')
+  parser.add_argument('--num_epochs', type=int, help='Number of epochs', default=200)
+  parser.add_argument('--_lambda', type=float, help='Lambda weight on profile head. Only matters when using a composite loss', default=0.5)
+  parser.add_argument('--bias', help='Boolean for including bias', default='True')
+  parser.add_argument('--n_filters', type=int, help='Number of filters in model body', default=300)
+  parser.add_argument('--ocr_eval', help='Boolean for OCR region evaluation', default='False')
+  parser.add_argument('--bin_size', type=int, help='Bin size', default=1)
+  parser.add_argument('--bin_pooling_type', help='Bin pooling type', default='none')
+  parser.add_argument('--scalar_head_fc_layers', type=int, help='Number of scalar head FC layers', default=1)
+  parser.add_argument('--batch_size', type=int, help='Batch size', default=20)
+  parser.add_argument('--learning_rate', type=float, help='Learning rate', default=0.001)
+  parser.add_argument('--lr_scheduler_name', help='Learning rate scheduler name', default='Warmup')
+  parser.add_argument('--lr_scheduler_args', help='Learning rate scheduler arguments as JSON', default='{"warmup_steps": 1000}')
+  parser.add_argument('--set_fixed_seed', help='Boolean for setting fixed seed', default='False')
+  parser.add_argument('--memmaped_data', help='Boolean for using memmaped data', default='True')
   parser.add_argument('--save_best_loss_model', action='store_true', default=False, help='DO not save model with best correlation score. instead save model with best loss (default: False)')
   parser.add_argument('--off_by_two', type=str, default='True', help='use this if you are using bp count data that has had an off-by-two correction, and intended output length of your model is smaller than the length of the bp sequences, but the bias data still represents the center of the original sequence that has not been corrected for off-by-two')
   parser.add_argument('--patience', type=int, default=10, help='number of epochs to run without improvment before early stopping')

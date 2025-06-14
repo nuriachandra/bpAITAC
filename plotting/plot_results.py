@@ -14,6 +14,8 @@ from scipy.stats import gaussian_kde, pearsonr
 from matplotlib.patches import FancyBboxPatch
 from eval_model import eval_model
 from utils.inference_utils import load_data, get_least_utilized_gpu
+import pandas as pd
+import matplotlib.pyplot as plt
 
 
 from utils.load_model import get_predictions, model_analysis, get_model, load_model
@@ -23,8 +25,9 @@ def plot_training_val_loss(training_file:str, val_file:str, output_file_path:str
     """
     plots two different arrays of the same length 
     """
-    train_data = np.loadtxt(training_file, delimiter=', ')
-    val_data = np.loadtxt(val_file, delimiter=', ')
+    train_data = np.squeeze(pd.read_csv(training_file, header=None).values)
+    val_data = np.squeeze(pd.read_csv(val_file, header=None).values)
+    print('train data is', train_data)
     plt.plot(train_data[:, 0], train_data[:, 1], label='training')
     plt.plot(val_data[:, 0], val_data[:, 1], label='validation')
 
@@ -89,7 +92,7 @@ def all_model_correlations():
     barplot_correlations(correlations, models, os.path.join(model_type_path, 'M7.png'))
 
 def get_correlations(filepath:str):
-    corr=np.loadtxt(filepath, delimiter=', ')
+    corr = pd.read_csv(filepath, header=None).values
     return np.max(corr[:,1])
 
 def barplot_correlations(correlations, model_names, out_save_path):
