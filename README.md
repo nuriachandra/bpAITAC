@@ -8,6 +8,8 @@ The packages required to run bpAITAC are included in `environment.yml`. In addit
 # Data
 Due to the large size of base-pair resultion data, the fullscale input data for this model must be 'memmaped'.  The models are designed to load in data based on a data config file. If the data is memmory mapped using the preprocessing code in `preprocessing/` a data config called info.txt will automatically be generated for you. 
 
+You can see examples of how to run the data preprocessing code in `preprocessing/prep_data.sh` 
+
 # Training
 
 ## Training bpAITAC
@@ -20,6 +22,11 @@ train.py is used for training bpAITAC. Below is an example of how to train bpAIT
 ## Training the Tn5 bias model
 We train the Tn5 bias model in an almost identical way to bpAITAC. However, a few model modifications are necessary to account for the single-track nature of training the Tn5 bias data. 
 
+1. To prep the data to train the bias model, use `preprocessing/prep_data_bias.py`
+2. To train the Tn5 bias model, use the `train.py` script with the `--model_name BPbi` 
+3. To compute the logits from the Tn5 bias model which can then be fed into training bpAITAC, use `preprocessing/prep_get_bias_logits.py`
+
+
 
 ## Authors
 
@@ -31,17 +38,3 @@ We train the Tn5 bias model in an almost identical way to bpAITAC. However, a fe
 * Alexander Sasse 
 * Sara Mostafavi
 
-
-## Running remote server
-on Chelan:
-cd into file, and activate ai-tac
-jupyter notebook --no-browser --port=8888
-
-on current server:
-ssh -N -f -L localhost:8888:localhost:8888 nchand@chelan.cs.washington.edu
-
-if the environment is not showing up as an option run
-python -m ipykernel install --user --name=ai-tac
-### Using Hyak
-to allocate 
- salloc -A mostafavilab -p gpu-a40 -N 1 -c 10 --gpus 1 --mem=80G --time=2:30:00
