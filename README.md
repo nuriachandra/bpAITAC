@@ -33,7 +33,7 @@ We train the Tn5 bias model in an almost identical way to bpAITAC. However, a fe
 2. To train the Tn5 bias model, use the `train.py` script with the `--model_name BPbi` 
 3. To compute the logits from the Tn5 bias model which can then be fed into training bpAITAC, use `preprocessing/prep_get_bias_logits.py`
 
-### Model interpretation & motif extraction
+## Model interpretation & motif extraction
 A tutorial for how to generate model attributions can be found in `analysis/analysis_tutorial.ipynb`. We include a notebook describing how we identified enriched motifs in bpAITAC in `analysis/EnrichedMotifs.ipynb`
 
 
