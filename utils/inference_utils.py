@@ -7,6 +7,8 @@ from typing import Union
 import os
 import yaml
 from tqdm import tqdm
+from pathlib import Path
+
 
 
 DatasetType = Union["train", "test", "validation"]
@@ -167,7 +169,64 @@ def load_names(info_file, dataset_type: DatasetType):
   names = np.memmap(info_df.iloc[row_index,0], dtype='<U26', shape=shape)
   return names
 
+def load_observed_non_memmaped(info_file, dataset_type: DatasetType, data_name: DataNames):
+    """
+    Load data from YAML config file using numpy.load (non-memory mapped)
+    """
+    with open(info_file, 'r') as f:
+        config = yaml.safe_load(f)
+    
+    dataset_prefix_map = {
+        "train": "train",
+        "test": "test", 
+        "validation": "val"  # Note: YAML uses 'val' prefix for validation
+    }
+    data_suffix_map = {
+        'total_counts': 'total_counts',
+        'onehot': 'onehot', 
+        'bias': 'bias',
+        'bp_counts': 'bp_counts',
+        'peak_names': 'names'  # Note: YAML uses 'names' suffix for peak_names
+    }
+    
+    if dataset_type not in dataset_prefix_map:
+        print(f"Unsupported dataset_type: {dataset_type}")
+        return None
+        
+    if data_name not in data_suffix_map:
+        print(f"Unsupported data_name: {data_name}")
+        return None
+    
+    # Construct the key for the YAML config
+    prefix = dataset_prefix_map[dataset_type]
+    suffix = data_suffix_map[data_name]
+    key = f"{prefix}_{suffix}"
+    
+    if key not in config:
+        print(f"Key '{key}' not found in config file")
+        return None
+    
+    file_path = config[key]
+    
+    # Check if file exists
+    if not Path(file_path).exists():
+        print(f"File not found: {file_path}")
+        return None
+    
+    print(f'Loading file: {file_path}')
+    
+    # Load data using numpy.load (non-memory mapped)
+    try:
+        data = np.load(file_path)
+        return data
+    except Exception as e:
+        print(f"Error loading file {file_path}: {e}")
+        return None
+
 def load_observed(info_file, dataset_type: DatasetType, data_name: DataNames):
+  if info_file.lower().endswith('.yaml') or info_file.lower().endswith('.yml'):
+    return load_observed_non_memmaped(info_file, dataset_type, data_name)
+
   info_df = pd.read_csv(info_file, delimiter="\t", names=['path', 'dtype', 'shape'])
   info_df['path'] = info_df['path'].apply(lambda x: x[1:-1]) # git rid of quotation marks in the info_file strings
   info_df['shape'] = info_df['shape'].apply(lambda x: x[1:-1]) # rid of parentheses in 'shapes'
@@ -202,7 +261,7 @@ def load_observed(info_file, dataset_type: DatasetType, data_name: DataNames):
       "test": 5,
       "validation": 10
   }
-
+  dtype='float32'
   if data_name == 'total_counts':
     dataset_row_map = total_counts_row_map
   elif data_name == 'onehot':
@@ -213,6 +272,7 @@ def load_observed(info_file, dataset_type: DatasetType, data_name: DataNames):
     dataset_row_map = bp_counts_row_map
   elif data_name == 'peak_names':
     dataset_row_map = names_row_map
+    dtype='<U26'
   else:
     print(data_name, "Unsupported data_name. This method may not be yet complete")
     return
@@ -223,7 +283,7 @@ def load_observed(info_file, dataset_type: DatasetType, data_name: DataNames):
   shape_str = info_df.loc[info_df.index[row_index]].at['shape']
   shape = tuple(int(num.strip()) for num in shape_str.split(",") if num.strip())  # parsing the string representation of the shape
   print('file name', info_df.iloc[row_index,0])
-  data = np.memmap(info_df.iloc[row_index,0], dtype='float32', shape=shape)
+  data = np.memmap(info_df.iloc[row_index,0], dtype=dtype, shape=shape)
   return data
 
 

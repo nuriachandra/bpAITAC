@@ -454,7 +454,9 @@ def select_best_gpu():
   return torch.device(f"cuda:{best_device}")
 
 def get_least_utilized_gpu():
-    assert torch.cuda.is_available(), "GPU is not available, check the directions above (or disable this assertio    n to use CPU)"
+    if not torch.cuda.is_available():
+      print("GPU is not available, using cpu ")
+      return torch.device('cpu')
 
     # Execute the nvidia-smi command and get its output
     result = subprocess.run(["nvidia-smi", "--query-gpu=memory.used", "--format=csv,nounits,noheader"], stdout=subprocess.PIPE)
