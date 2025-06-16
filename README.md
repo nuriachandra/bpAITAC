@@ -8,6 +8,9 @@ bioRxiv: https://www.biorxiv.org/content/10.1101/2025.01.24.634804v1
 The packages required to run bpAITAC are included in `environment.yml`. In addition you may need to install pytorch. For results reported in the publication we use `pytorch-cuda=12.4`. You can intall pytorch using pip from `https://pytorch.org/get-started/locally/` 
 
 ## Data
+This paper analyzes existing, publicly available data from [Yoshida et al. 2019 DOI: 10.1016/j.cell.2018.12.036](https://pubmed.ncbi.nlm.nih.gov/30686579/). The GEO accession number for the ATACseq data reported in this paper is GSE100738. Processed ATAC-seq data and called peaks can be found at:
+[https://sharehost.hms.harvard.edu/immgen/ImmGenATAC18_AllOCRsInfo.csv](https://sharehost.hms.harvard.edu/immgen/ImmGenATAC18_AllOCRsInfo.csv)
+
 Due to the large size of base-pair resultion data, the fullscale input data for this model must be 'memmaped'.  The models are designed to load in data based on a data config file. If the data is memmory mapped using the preprocessing code in `preprocessing/` a data config called info.txt will automatically be generated for you. 
 
 You can see examples of how to run the data preprocessing code in `preprocessing/prep_data.sh` 
