@@ -1,0 +1,85 @@
+04-06-2025.18.34
+logs/BP203_no_seed_L-1_5/complete/04-06-2025.18.34.txt
+model: BPcm_250
+BP203_no_seed_L-1_5 complete
+Elapsed time: $((35/3600/24)) days 00 hr 00 min 35 sec
+Loss function: PoissonLoss
+200 epochs
+Bias added True
+Number of filters: 300
+Learning Rate: 0.001
+Learning Rate Scheduler: Warmup
+Learning Rate Scheduler Arguments: {"warmup_steps": 1000}
+OCR evaluation: False
+Set seed: False
+Info file: /gscratch/mostafavilab/nchand/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_shallow_deprotinated_bias_quantile_normalized_4.1.25/memmap/info.txt
+Off by two: True
+
+04-06-2025.07.59
+logs/BP203_no_seed_L-1_5/complete/04-06-2025.07.59.txt
+model: BPcm_250
+BP203_no_seed_L-1_5 complete
+Elapsed time: $((56858/3600/24)) days 15 hr 47 min 38 sec
+Loss function: PoissonLoss
+200 epochs
+Bias added True
+Number of filters: 300
+Learning Rate: 0.001
+Learning Rate Scheduler: Warmup
+Learning Rate Scheduler Arguments: {"warmup_steps": 1000}
+OCR evaluation: False
+Set seed: False
+Info file: /gscratch/mostafavilab/nchand/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_shallow_deprotinated_bias_quantile_normalized_4.1.25/memmap/info.txt
+Off by two: True
+
+04-06-2025.18.34
+logs/BP203_no_seed_L-1_5/complete/04-06-2025.18.34.txt
+model: BPcm_250
+BP203_no_seed_L-1_5 complete
+Elapsed time: $((47787/3600/24)) days 13 hr 16 min 27 sec
+Loss function: PoissonLoss
+200 epochs
+Bias added True
+Number of filters: 300
+Learning Rate: 0.001
+Learning Rate Scheduler: Warmup
+Learning Rate Scheduler Arguments: {"warmup_steps": 1000}
+OCR evaluation: False
+Set seed: False
+Info file: /gscratch/mostafavilab/nchand/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_shallow_deprotinated_bias_quantile_normalized_4.1.25/memmap/info.txt
+Off by two: True
+
+04-06-2025.18.37
+logs/BP203_no_seed_L-1_5/complete/04-06-2025.18.37.txt
+model: BPcm_250
+BP203_no_seed_L-1_5 complete
+Elapsed time: $((53456/3600/24)) days 14 hr 50 min 56 sec
+Loss function: PoissonLoss
+200 epochs
+Bias added True
+Number of filters: 300
+Learning Rate: 0.001
+Learning Rate Scheduler: Warmup
+Learning Rate Scheduler Arguments: {"warmup_steps": 1000}
+OCR evaluation: False
+Set seed: False
+Info file: /gscratch/mostafavilab/nchand/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_shallow_deprotinated_bias_quantile_normalized_4.1.25/memmap/info.txt
+Off by two: True
+
+04-06-2025.18.19
+logs/BP203_no_seed_L-1_5/complete/04-06-2025.18.19.txt
+model: BPcm_250
+BP203_no_seed_L-1_5 complete
+Elapsed time: $((59227/3600/24)) days 16 hr 27 min 07 sec
+Loss function: PoissonLoss
+200 epochs
+Bias added True
+Number of filters: 300
+Learning Rate: 0.001
+Learning Rate Scheduler: Warmup
+Learning Rate Scheduler Arguments: {"warmup_steps": 1000}
+OCR evaluation: False
+Set seed: False
+Info file: /gscratch/mostafavilab/nchand/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_shallow_deprotinated_bias_quantile_normalized_4.1.25/memmap/info.txt
+Off by two: True
+
