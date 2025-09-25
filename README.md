@@ -48,3 +48,7 @@ A tutorial for how to generate model attributions can be found in `analysis/anal
 * Yan Hu
 * Jason D. Buenrostro
 
+### License
+[![MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
