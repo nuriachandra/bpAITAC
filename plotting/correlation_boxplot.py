@@ -205,6 +205,106 @@ def plot_boxplot_cv_quartile(data, trial_df, out_path, x_label, y_label, info_pa
     plt.show()
     plt.clf()
 
+from scipy.stats import ranksums
+
+def plot_boxplot_cv_quartile_pval(data, trial_df, out_path, x_label, y_label, info_path, title="", 
+                 mean_y_label=None, figure_ratio=(3.5, 4.5)):
+    """
+    Plots boxplot of the data, with quartiles on x-axis and boxes colored by x_label.
+    Also plots in a scatter plot the mean of the trials on top.
+    Prints Wilcoxon rank-sum test p-values between models for each quartile.
+    """
+    plt.clf()
+
+    cv_quartile_arr = get_coefficient_of_variance_quartile_array(info_path)
+    assert len(data[y_label]) % len(cv_quartile_arr) == 0
+    n_trials_total = len(data[y_label])//len(cv_quartile_arr)
+    cv_quartile = np.tile(cv_quartile_arr, n_trials_total)
+    data['cv_quartile'] = cv_quartile
+
+    axis_y_label = y_label
+    if y_label == "scalar_corr":
+        axis_y_label = "Pearson R of OCRs"
+    elif y_label == "scalar_corr_peaks":
+        axis_y_label = "Pearson R across regions"
+    if mean_y_label is None:
+        mean_y_label = y_label
+
+    # Calculate Wilcoxon rank-sum test p-values between models for each quartile
+    unique_models = data[x_label].unique()
+    if len(unique_models) == 2:
+        print(f"\nWilcoxon rank-sum test p-values between {unique_models[0]} and {unique_models[1]}:")
+        for quartile in sorted(data['cv_quartile'].unique()):
+            model1_data = data[(data['cv_quartile'] == quartile) & (data[x_label] == unique_models[0])][y_label]
+            model2_data = data[(data['cv_quartile'] == quartile) & (data[x_label] == unique_models[1])][y_label]
+            
+            if len(model1_data) > 0 and len(model2_data) > 0:
+                stat, pval = ranksums(model1_data, model2_data)
+                exponent = int(np.floor(np.log10(pval))) if pval > 0 else 0
+                print(f"  Quartile {int(quartile)}: p = {pval:.4e} (e{exponent})")
+            else:
+                print(f"  Quartile {int(quartile)}: insufficient data")
+    else:
+        print(f"\nNote: Wilcoxon test requires exactly 2 models, found {len(unique_models)}")
+
+    plt.clf()
+    fig, ax = plt.subplots(figsize=figure_ratio)
+    sns.set(style="whitegrid")
+
+    # Create a color palette for x_label
+    x_label_palette = sns.color_palette("husl", n_colors=len(data[x_label].unique()))
+
+    # Create the boxplot
+    sns.boxplot(x='cv_quartile', y=y_label, hue=x_label, data=data, palette=x_label_palette, ax=ax)
+
+    # Remove x-axis labels
+    ax.set_xticklabels([1, 2, 3, 4])
+    ax.set_xlabel("Quartiles CV of OCRs", fontsize=10)
+    
+    ax.set_title(title, fontsize=10)
+
+    # Adding trial data points
+    if 'trial' in data.columns:
+        # Group by cv_quartile and trial, then calculate mean
+        trial_means = data.groupby(['cv_quartile', 'trial', x_label])[y_label].mean().reset_index()
+        
+        for i, (name, group) in enumerate(trial_means.groupby(x_label)):
+            # Calculate x-positions for the scatter points based on the group index
+            if i == 0:
+                x_positions = group['cv_quartile'].astype(float) - 1 - 1/5
+            elif i == 1:
+                x_positions = group['cv_quartile'].astype(float) - 1 + 1/5
+            else:
+                print("error: only two groups supported right now")
+                exit()
+            # x_jitter = np.random.normal(0, 0.05, len(x_positions))
+            ax.scatter(x_positions, group[y_label], color='black',
+                    s=20, alpha=0.7, zorder=3)
+    
+    ax.set_ylabel(axis_y_label, fontsize=10)
+
+    # Adjust legend
+    # handles, labels = ax.get_legend_handles_labels()
+    # unique_labels = dict(zip(labels, handles))
+    # ax.legend(unique_labels.values(), unique_labels.keys(), 
+    #           title=x_label, bbox_to_anchor=(1.05, 1), loc='upper left')
+
+    # Adjust legend
+    # if x_label == 'lambda':
+    #     legend_title = "$\lambda$"
+    # else:
+    #     legend_title = x_label
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+
+    # Adjust layout to prevent cutoff
+    plt.tight_layout()
+
+    # Save the plot
+    plt.savefig(out_path + '.png', bbox_inches='tight', dpi=330)
+    print('saved boxplot at', out_path + '.png')
+    plt.show()
+    plt.clf()
+
 
 def top_OCRs(total_counts:np.ndarray, n_celltypes:int, percent:int=10):
     """
@@ -907,7 +1007,7 @@ def main():
     # analysis_file_name = 'testing_correlation_analysis.npz'
     celltype_corr_metrics = False
     max_n_trials = 5 # or none
-    out_dir = 'final_figs/'
+    out_dir = 'rebuttal_figs/'
 
     # Default settings
     bin_size = 1
@@ -953,8 +1053,11 @@ def main():
     print(analysis_df[['lambda', 'trial']])
     analysis_df['model_display_name'] = analysis_df['lambda'].map({0.5: 'bpAI-TAC', 0: 'AI-TAC'})
 
-    plot_boxplot_cv_quartile(analysis_df,  trial_df, out_dir + "1d_"+ model_number + '_scalar_corr_boxplot_' + boxplot_iteration_number, 
+    plot_boxplot_cv_quartile_pval(analysis_df,  trial_df, out_dir + "1d_"+ model_number + '_scalar_corr_boxplot_' + boxplot_iteration_number, 
                 'model_display_name', 'scalar_corr', figure_ratio=(5, 3.5), info_path=val_info_path)
+
+    # plot_boxplot_cv_quartile(analysis_df,  trial_df, out_dir + "1d_"+ model_number + '_scalar_corr_boxplot_' + boxplot_iteration_number, 
+    #             'model_display_name', 'scalar_corr', figure_ratio=(5, 3.5), info_path=val_info_path)
     
         
     # plot_boxplot(analysis_df, trial_df, out_dir + model_number + '_bp_corr_boxplot_' + boxplot_iteration_number, 

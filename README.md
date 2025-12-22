@@ -52,3 +52,16 @@ A tutorial for how to generate model attributions can be found in `analysis/anal
 [![MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
+## Running remote server
+on Chelan:
+cd into file, and activate ai-tac
+jupyter notebook --no-browser --port=8888
+
+on current server:
+ssh -N -f -L localhost:8888:localhost:8888 nchand@chelan.cs.washington.edu
+
+then copy and paste the url from the Chelan server into vscode 'exsiting jupyter server'
+
+### Using Hyak
+to allocate 
+ salloc -A mostafavilab -p gpu-a40 -N 1 -c 10 --gpus 1 --mem=80G --time=2:30:00
