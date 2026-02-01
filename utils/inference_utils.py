@@ -319,6 +319,7 @@ def predict_scalar(model, onehot_seq, n_celltypes=90, batch_size=100, device='cu
 def predict_all(model, onehot_seq, out_seq_len=998, n_celltypes=90, batch_size=100, device='cuda'):
     """
     onehot_seq has shape (n, 4, seq_len)
+    returns profile, counts 
     """
     torch.cuda.empty_cache()
     model.to(device)

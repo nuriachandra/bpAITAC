@@ -279,7 +279,7 @@ if __name__ == '__main__':
         vmin = vmax = None
     
     
-    fig = plt.figure(figsize = (4.5,4.5), dpi = 200)
+    fig = plt.figure(figsize = (3.5,3.5), dpi = 200)
     ax = fig.add_subplot(111)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
@@ -349,9 +349,17 @@ if __name__ == '__main__':
             density = density[sortd]
         ax.tricontour(vals[0][sortd], vals[1][sortd], density, levels=14, linewidths=0.5, colors='k')
         #ax.tricontourf(vals[0][sortd], vals[1][sortd], colors, levels=14, cmap=cmap, alpha = 0.2)
+
         ax.set_xlim(xlim)
         ax.set_ylim(ylim)
-        
+
+    if '--xysamelim' in sys.argv:
+        all_min = np.amin(vals)
+        all_max = np.amax(vals)
+        ax.set_xlim([all_min, all_max])
+        ax.set_ylim([all_min, all_max])
+        ax.set_aspect('equal', adjustable='box')
+    
     if '--splitcontour' in sys.argv and '--colorfile' in sys.argv:
         xlim = ax.get_xlim()
         ylim = ax.get_ylim()
@@ -414,10 +422,27 @@ if __name__ == '__main__':
         ax.set_ylim(ylim)
     
     if '--xysamelim' in sys.argv:
-        xlim = [np.amin(vals), np.amax(vals)]
-        ylim = [np.amin(vals), np.amax(vals)]
-        ax.set_ylim(ylim)
-        ax.set_xlim(xlim)
+        all_min = np.amin(vals)
+        all_max = np.amax(vals)
+        ax.set_xlim([all_min, all_max])
+        ax.set_ylim([all_min, all_max])
+        ax.set_aspect('equal', adjustable='box')
+    
+    if '--manualticks' in sys.argv:
+        tick_values = sys.argv[sys.argv.index('--manualticks')+1].split(',')
+        tick_values = np.array(tick_values, dtype=float)
+        ax.set_xticks(tick_values)
+        ax.set_yticks(tick_values)
+    
+    # if '--manualticks' in sys.argv:
+    #     # Manually set ticks from -0.6 to 0.8, evenly spaced
+    #     all_ticks = np.arange(-0.6, 0.81, 0.2)  # -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6, 0.8
+        
+    #     ax.set_xticks(all_ticks)
+    #     ax.set_yticks(all_ticks)
+
+
+
     
     xlim = ax.get_xlim()
     ylim = ax.get_ylim()
@@ -444,6 +469,7 @@ if __name__ == '__main__':
     if '--format' in sys.argv:
         fmt = int(sys.argv[sys.argv.index('--format')+1])
     
+    ax.set_aspect('equal', adjustable='box')
     if '--savefig' in sys.argv:
         outname = sys.argv[sys.argv.index('--savefig')+1]
         print(outname+'_scatter.'+fmt)
