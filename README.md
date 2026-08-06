@@ -33,8 +33,14 @@ We train the Tn5 bias model in an almost identical way to bpAITAC. However, a fe
 2. To train the Tn5 bias model, use the `train.py` script with the `--model_name BPbi` 
 3. To compute the logits from the Tn5 bias model which can then be fed into training bpAITAC, use `preprocessing/prep_get_bias_logits.py`
 
-## Model interpretation & motif extraction
-A tutorial for how to generate model attributions can be found in `analysis/analysis_tutorial.ipynb`. We include a notebook describing how we identified enriched motifs in bpAITAC in `analysis/EnrichedMotifs.ipynb`
+## Inference & model interpretation
+
+A trained bpAITAC model is included in this repository at
+`trained_models/06-16-2025.12.17/best_model` so you can run inference and
+interpretation without retraining. `analysis/analysis_tutorial.ipynb` is the
+recommended starting point: it loads that checkpoint and walks through
+generating model attributions. We also include `analysis/EnrichedMotifs.ipynb`,
+which describes how we identified enriched motifs in bpAITAC.
 
 
 
@@ -51,17 +57,4 @@ A tutorial for how to generate model attributions can be found in `analysis/anal
 ### License
 [![MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-
-## Running remote server
-on Chelan:
-cd into file, and activate ai-tac
-jupyter notebook --no-browser --port=8888
-
-on current server:
-ssh -N -f -L localhost:8888:localhost:8888 nchand@chelan.cs.washington.edu
-
-then copy and paste the url from the Chelan server into vscode 'exsiting jupyter server'
-
-### Using Hyak
-to allocate 
- salloc -A mostafavilab -p gpu-a40 -N 1 -c 10 --gpus 1 --mem=80G --time=2:30:00
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

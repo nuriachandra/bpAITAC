@@ -332,16 +332,16 @@ def wilcoxon_rank_sum_test_between_models(data_path):
 def main():
     # For BP17 run with complete_bias_corrected_normalized_4.3.23-2 (on Hyak) ONLY!
     #  Peak names may be different for other datasets
-    # peak_names = np.load('/data/nchand/analysis/BPcm/BP17_setup_data/val_peak_names.npy') 
-    # results_dir = '/data/nchand/analysis/BPcm/'
+    # peak_names = np.load('/path/to/results/BPcm/BP17_setup_data/val_peak_names.npy') 
+    # results_dir = '/path/to/results/BPcm/'
     # model_names = ['BP17_L0_0', 'BP17_L-1_1', 'BP17_L-1_3', 'BP17_L-1_5', 'BP17_L-1_7', 'BP17_L-1_9',
     #           'BP17_L0_1.1', 'BP17_L0_1.3', 'BP17_L0_1.5']
     # lambdas = [0, 0.1, 0.3, 0.5, 0.7, 0.9,
     #          1.1, 1.3, 1.5]
     
     # For BP33 run with complete_bias_corrected_normalized_4.3.23-2 (on Hyak)
-    peak_names = np.load('/data/nchand/analysis/BPcm/BP17_setup_data/val_peak_names.npy') # i think it was the same as BP17
-    results_dir = '/data/nchand/analysis/BPcm/'
+    peak_names = np.load('/path/to/results/BPcm/BP17_setup_data/val_peak_names.npy') # i think it was the same as BP17
+    results_dir = '/path/to/results/BPcm/'
     model_names = ['BP33_1_L0_0.9', 'BP33_5_L0_0.9']
     experiment_variables = [1, 5]
     
@@ -356,16 +356,16 @@ def main():
 
     # # save txt files for specific lambdas to run in Alex's scatter plot scripts
     # lambda_0 = avgs[['peak_names', '0']]
-    # lambda_0.to_csv('/data/nchand/analysis/BPcm/BP17_L0_0/scalar_corr_avg.tsv', sep='\t', index=False)
+    # lambda_0.to_csv('/path/to/results/BPcm/BP17_L0_0/scalar_corr_avg.tsv', sep='\t', index=False)
     # lambda_p7 = avgs[['peak_names', '0.7']]
-    # lambda_p7.to_csv('/data/nchand/analysis/BPcm/BP17_L-1_7/scalar_corr_avg.tsv', sep='\t', index=False)
+    # lambda_p7.to_csv('/path/to/results/BPcm/BP17_L-1_7/scalar_corr_avg.tsv', sep='\t', index=False)
     # lambda_p9 = avgs[['peak_names', '0.9']]
-    # lambda_p9.to_csv('/data/nchand/analysis/BPcm/BP17_L-1_9/scalar_corr_avg.tsv', sep='\t', index=False)
+    # lambda_p9.to_csv('/path/to/results/BPcm/BP17_L-1_9/scalar_corr_avg.tsv', sep='\t', index=False)
 
     bin1 = avgs[['peak_names', '1']]
-    bin1.to_csv('/data/nchand/analysis/BPcm/BP33_1_L0_0.9/scalar_corr_avg.tsv', sep='\t', index=False, header=False)
+    bin1.to_csv('/path/to/results/BPcm/BP33_1_L0_0.9/scalar_corr_avg.tsv', sep='\t', index=False, header=False)
     bin5 = avgs[['peak_names', '5']]
-    bin5.to_csv('/data/nchand/analysis/BPcm/BP33_5_L0_0.9/scalar_corr_avg.tsv', sep='\t', index=False, header=False)
+    bin5.to_csv('/path/to/results/BPcm/BP33_5_L0_0.9/scalar_corr_avg.tsv', sep='\t', index=False, header=False)
 
 
 if __name__ == "__main__":

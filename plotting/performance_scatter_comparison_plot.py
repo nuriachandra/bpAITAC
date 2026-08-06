@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 def convert_to_txt(analysis_file_path, numpy_file_name, output_path):
     data = np.load(analysis_file_path)[numpy_file_name]
-    peak_names =  np.load('/data/nchand/analysis/BPcm/BP17_setup_data/val_peak_names.npy')
+    peak_names =  np.load('/path/to/results/BPcm/BP17_setup_data/val_peak_names.npy')
     # Convert peak_names to a format compatible with savetxt
     combined = np.vstack((peak_names, data))
     combined = np.transpose(combined)
@@ -54,23 +54,23 @@ def scatter_plot_by_celltype(celltypes, x_data:np.ndarray, y_data:np.ndarray, x_
 
 
 def plot_scalar_correlation():
-    lambda0, lambdap7 = get_data("/data/nchand/analysis/BPcm/BP17_L0_0/09-22-2023.08.38/analysis.npz", "/data/nchand/analysis/BPcm/BP17_L-1_7/05-26-2023.14.26/analysis.npz", 'scalar_corr')
-    scatter_heat(lambda0, lambdap7, "$\lambda$=0", "$\lambda$=0.7", "/data/nchand/analysis/BPcm/BP17lambda0vs0.7_scalar_correlation_2")
-    bin1, bin5 = get_data("/data/nchand/analysis/BPcm/BP33_1_L0_0.9/scalar_corr_avg.tsv", "/data/nchand/analysis/BPcm/BP33_5_L0_0.9/scalar_corr_avg.tsv", 'scalar_corr')
-    scatter_heat(bin1, bin5, "No Binning", "Bin Size = 5", "/data/nchand/analysis/BPcm/BP33bin1vsbin5_scalar_correlation_1")
+    lambda0, lambdap7 = get_data("/path/to/results/BPcm/BP17_L0_0/09-22-2023.08.38/analysis.npz", "/path/to/results/BPcm/BP17_L-1_7/05-26-2023.14.26/analysis.npz", 'scalar_corr')
+    scatter_heat(lambda0, lambdap7, "$\lambda$=0", "$\lambda$=0.7", "/path/to/results/BPcm/BP17lambda0vs0.7_scalar_correlation_2")
+    bin1, bin5 = get_data("/path/to/results/BPcm/BP33_1_L0_0.9/scalar_corr_avg.tsv", "/path/to/results/BPcm/BP33_5_L0_0.9/scalar_corr_avg.tsv", 'scalar_corr')
+    scatter_heat(bin1, bin5, "No Binning", "Bin Size = 5", "/path/to/results/BPcm/BP33bin1vsbin5_scalar_correlation_1")
 
 def plot_bp_correlation():
-    celltypes = np.load('/data/nchand/analysis/BPcm/BP17_setup_data/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.celltypes.npy')
-    lambda0, lambdap7 = get_data("/data/nchand/analysis/BPcm/BP17_L0_0/09-22-2023.08.38/analysis.npz", "/data/nchand/analysis/BPcm/BP17_L-1_7/05-26-2023.14.26/analysis.npz", 'bp_corr')
+    celltypes = np.load('/path/to/results/BPcm/BP17_setup_data/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.celltypes.npy')
+    lambda0, lambdap7 = get_data("/path/to/results/BPcm/BP17_L0_0/09-22-2023.08.38/analysis.npz", "/path/to/results/BPcm/BP17_L-1_7/05-26-2023.14.26/analysis.npz", 'bp_corr')
     print(lambda0.shape)
-    scatter_plot_by_celltype(celltypes, lambda0, lambdap7, "$\lambda$=0", "$\lambda$=0.7", "/data/nchand/analysis/BPcm/BP17lambda0vs0.7_bp_correlation_1")
+    scatter_plot_by_celltype(celltypes, lambda0, lambdap7, "$\lambda$=0", "$\lambda$=0.7", "/path/to/results/BPcm/BP17lambda0vs0.7_bp_correlation_1")
     
     # select_cells = ['B.FrE.BM']
     # mask = np.isin(celltypes, select_cells)
     # cell_idx = np.where(mask)[0]
     # eps = 1e-8
 
-    # scatter_heat(lambda0[:,cell_idx][0]+eps, lambdap7[:, cell_idx][0]+eps, "$\lambda$=0", "$\lambda$=0.7", "/data/nchand/analysis/BPcm/BP17lambda0vs0.7_bp_correlation_B.FrE.BM_1")
+    # scatter_heat(lambda0[:,cell_idx][0]+eps, lambdap7[:, cell_idx][0]+eps, "$\lambda$=0", "$\lambda$=0.7", "/path/to/results/BPcm/BP17lambda0vs0.7_bp_correlation_B.FrE.BM_1")
 
 if __name__ == '__main__':  
     plot_scalar_correlation()
@@ -80,9 +80,9 @@ if __name__ == '__main__':
 
 
 
-    # convert_to_txt("/data/nchand/analysis/BPcm/BP17_L0_0/09-22-2023.08.38/analysis.npz",
+    # convert_to_txt("/path/to/results/BPcm/BP17_L0_0/09-22-2023.08.38/analysis.npz",
     #                'scalar_corr', 
-    #                "/data/nchand/analysis/BPcm/BP17_L0_0/09-22-2023.08.38/scalar_correlations_for_plotting.txt")
-    # convert_to_txt("/data/nchand/analysis/BPcm/BP17_L-1_7/05-26-2023.14.26/analysis.npz",
+    #                "/path/to/results/BPcm/BP17_L0_0/09-22-2023.08.38/scalar_correlations_for_plotting.txt")
+    # convert_to_txt("/path/to/results/BPcm/BP17_L-1_7/05-26-2023.14.26/analysis.npz",
     #             'scalar_corr', 
-    #             "/data/nchand/analysis/BPcm/BP17_L-1_7/05-26-2023.14.26/scalar_correlations_for_plotting.txt")
+    #             "/path/to/results/BPcm/BP17_L-1_7/05-26-2023.14.26/scalar_correlations_for_plotting.txt")

@@ -55,7 +55,7 @@ def get_logits(model, onehot_npz_path, out_seq_len=250):
 def main():
     '''
     Example of how to run:
-    python prep_get_bias_logits.py --onehot_npz /data/nchand/mm10/mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz --saved_bias_model /homes/gws/nchand/MostafaviLab/results/BPbi/BP106_L0_1/complete/11-02-2024.14.48/best_model --out_path /data/nchand/ImmGen/mouse/BPprofiles1000/bias/BP106_L0_1_deprotinated_mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz
+    python prep_get_bias_logits.py --onehot_npz /path/to/data/mm10/mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz --saved_bias_model /path/to/results/results/BPbi/BP106_L0_1/complete/11-02-2024.14.48/best_model --out_path /path/to/data/ImmGen/mouse/BPprofiles1000/bias/BP106_L0_1_deprotinated_mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz
     '''
     parser = argparse.ArgumentParser(description='Process onehot npz and saved bias model')
     

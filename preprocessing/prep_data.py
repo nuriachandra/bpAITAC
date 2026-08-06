@@ -18,14 +18,14 @@ Arguments:
 1) onehot_npz: file path to npz file containing a file named 'seqfeatures' that 
   has the onehot encodings in it. and a 'genenames' file that 
   has the peak names in it
-  ex) /data/nchand/mm10/mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz
+  ex) /path/to/data/mm10/mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz
 2) atac_npz: filepath to npz file with file 'counts' with base-pair counts
   'names' with peak names, and 'celltypes' with the names of the 90
   celltypes represented in the atac file
-  ex) /data/nchand/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.npz
+  ex) /path/to/data/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.npz
 3) bias_npz: filepath to npz file with file 'counts' containing predicted tn5 cut bias 
   and file 'names' with peak names 
-  ex) /data/nchand/ImmGen/mouse/BPprofiles1000/bias/CNNdilbiasfromcleanBACs_loglike.npz
+  ex) /path/to/data/ImmGen/mouse/BPprofiles1000/bias/CNNdilbiasfromcleanBACs_loglike.npz
 5) path of pickled dictionary that maps peak names to chromosome name
 6) directory where the output data will be stored and the memmaps folder will be created
 7) if the data should be like in ai-tac True or False
@@ -33,7 +33,7 @@ Arguments:
 9) True if the bias is ahead of atac_counts by 2
 10) --lineage-filepath defaults to None 
 11) --selected-lineage defaults to None. If 'all' then a multi-task model with lineages will be selected. Otherwise should be a lineage name such as 'Stem&Prog' or 'B'
-12) --cell-names-filepath defaults to None. Only needed if selected-lineage is specified. ex) cell_names = np.load("/data/nchand/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.celltypes.npy")
+12) --cell-names-filepath defaults to None. Only needed if selected-lineage is specified. ex) cell_names = np.load("/path/to/data/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.celltypes.npy")
 
 """
 
@@ -201,14 +201,14 @@ def sort_data(onehot_npz, atac_npz, bias_npz, off_by_two:bool):
   onehot_npz: path to npz file containing a file named 'seqfeatures' that 
     has the onehot encodings in it. and a 'genenames' file that 
     has the peak names in it
-    ex) /data/nchand/mm10/mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz
+    ex) /path/to/data/mm10/mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz
   atac_npz: path to npz file with file 'counts' with base-pair counts
     'names' with peak names, and 'celltypes' with the names of the 90
     celltypes represented in the atac file
-    ex) /data/nchand/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.npz
+    ex) /path/to/data/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.npz
   bias_npz: path to npz file with file 'counts' containing predicted tn5 cut bias 
     and file 'names' with peak names 
-    ex) /data/nchand/ImmGen/mouse/BPprofiles1000/bias/CNNdilbiasfromcleanBACs_loglike.npz
+    ex) /path/to/data/ImmGen/mouse/BPprofiles1000/bias/CNNdilbiasfromcleanBACs_loglike.npz
   """
   onehot_encoding = np.load(onehot_npz, allow_pickle=True)['seqfeatures'][0] # dim 0 = the onehot enc dim 1=nucleotide order
   onehot_names = np.load(onehot_npz, allow_pickle=True)['genenames']
@@ -296,4 +296,4 @@ if __name__ == '__main__':
 
 
 # aitac_settings = False
-# python prep_data.py /data/nchand/mm10/mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz 
+# python prep_data.py /path/to/data/mm10/mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz 

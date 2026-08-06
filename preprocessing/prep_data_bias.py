@@ -437,4 +437,4 @@ if __name__ == "__main__":
     main()
 
 # example usage to prep the bias counts from the closed region counts 
-# python prep_data_bias.py --onehot_npz /data/nchand/mm10/mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz --counts_npz /data/mostafavilab/ImgenATAC/ImmGen-log10pvaluesgt0.25_counts250bp_combined.npz --output_dir /data/nchand/ImmGen/mouse/bias/tn5_bias_counts250bp_combined_filtered_11.2.24 
+# python prep_data_bias.py --onehot_npz /path/to/data/mm10/mm10ImmGenATAC1219.peak_matched1000bp_onehot-ACGT_alignleft.npz --counts_npz /data/mostafavilab/ImgenATAC/ImmGen-log10pvaluesgt0.25_counts250bp_combined.npz --output_dir /path/to/data/ImmGen/mouse/bias/tn5_bias_counts250bp_combined_filtered_11.2.24 

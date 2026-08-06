@@ -1,11 +1,8 @@
 import torch
 from torch import nn
-from typing import Union
-from models.BPcm import BPcm
-from models.BPnetRep import BPnetRep
 
 class AttributionModelWrapper(nn.Module):
-    def __init__(self, model: Union[BPcm, BPnetRep]):
+    def __init__(self, model: nn.Module):
         super(AttributionModelWrapper, self).__init__()
         self.model = model
 

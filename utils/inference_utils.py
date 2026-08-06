@@ -48,7 +48,7 @@ def load_data(info_file:str, batch_size=100):
   info_df['shape'] = info_df['shape'].apply(lambda x: x[1:-1]) # rid of parentheses in 'shapes'
 
   # 1st column is memmap file path, 2nd column is dtype, 3rd col is shape
-  # '/gscratch/mostafavilab/nchand/bpAITAC/data_train_test/complete/memmap/test.names.dat'      dtype('<U26')   (267237,)
+  # '/path/to/bpAITAC/data_train_test/complete/memmap/test.names.dat'      dtype('<U26')   (267237,)
 
   train_df = info_df.iloc[1:5]
   val_df = info_df.iloc[11:15]

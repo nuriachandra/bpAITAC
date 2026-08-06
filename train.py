@@ -11,21 +11,8 @@ from utils.inference_utils import load_data_non_memmaped
 import os
 import pickle
 from torch.utils.data import DataLoader, TensorDataset
-from models.BPnetRep import BPnetRep
-from models.BPmultimax import BPmultimax
-from models.BPcm import BPcm
 from models.bpAITAC import bpAITAC
-from models.BPcm_250 import BPcm_250
 from models.BPbi import BPbi
-from models.BPbi_shallow import BPbi_shallow
-from models.BPcm_bias0 import BPcm_bias0
-from models.BPcm_biasRandom import BPcm_biasRandom
-from models.BPcm_noOffTwo import BPcm_noOffTwo
-from models.BPoh import BPoh
-from models.BPol import BPol
-from models.BPmp import BPmp
-from models.BPcm_skinny import BPcm_skinny
-from models.BPcm_super_skinny import BPcm_super_skinny
 from utils.EarlyStopping import EarlyCorrelationStopping, EarlyStopping
 import time
 import copy
@@ -58,7 +45,7 @@ def load_data(info_file:str, batch_size=100):
       info_file for memmaped data format:
       1st column is memmap file path, 2nd column is dtype, 3rd col is shape
       example:
-      '/gscratch/mostafavilab/nchand/bpAITAC/data_train_test/complete/memmap/test.names.dat'	dtype('<U26')	(267237,)
+      '/path/to/bpAITAC/data_train_test/complete/memmap/test.names.dat'	dtype('<U26')	(267237,)
   batch_size: the batch size to be used in each training iteration. 
       defaults to 100
   """
@@ -540,7 +527,7 @@ def main():
   parser.add_argument('--celltypes_path', help='Path to celltypes numpy file', required=True)
   parser.add_argument('--seq_len', type=int, help='Length of sequences in base pairs', required=True)
   parser.add_argument('--name', help='Version name of the model being tested', required=True)
-  parser.add_argument('--model_name', help='Name of the torch.nn model class', default='BPcm_250')
+  parser.add_argument('--model_name', help="Name of the model to train: 'bpAITAC' or 'BPbi' (Tn5 bias model)", default='bpAITAC')
   parser.add_argument('--output_path', help='Output directory path', required=True)
   parser.add_argument('--loss_fxn', help='Loss function name', default='PoissonLoss')
   parser.add_argument('--num_epochs', type=int, help='Number of epochs', default=200)
@@ -621,39 +608,14 @@ def main():
     args.save_best_loss_model = True # we want to save the best loss model, because correlation across celltypes will always be zero
     print('args save best loss model', args.save_best_loss_model)
 
-  if model_name =='BPnetRep':
-    model = BPnetRep(seq_len, n_celltypes, num_filters=n_filters)
-  elif model_name == 'BPmultimax':
-    model = BPmultimax(seq_len=seq_len, n_celltypes=n_celltypes)
-  elif model_name == 'BPcm':
-    model = BPcm(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers)
-  elif model_name == 'BPcm_250':
-    model = BPcm_250(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers, off_by_two=args.off_by_two)
-  elif model_name == 'bpAITAC':
+  if model_name == 'bpAITAC':
     model = bpAITAC(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers, off_by_two=args.off_by_two)
-  elif model_name == 'BPcm_bias0':
-    model = BPcm_bias0(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers)
-  elif model_name == 'BPcm_biasRandom':
-    model = BPcm_biasRandom(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers)
-  elif model_name == 'BPcm_noOffTwo':
-    model = BPcm_noOffTwo(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers)
-  elif model_name == 'BPoh':
-    model = BPoh(num_filters=n_filters, n_celltypes=n_celltypes, ocr_start=375, ocr_end=625)
-  elif model_name == 'BPol':
-    model = BPol(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type)
-  elif model_name == 'BPmp':
-    model = BPmp(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size)
-  elif model_name == 'BPcm_skinny':
-    model = BPcm_skinny(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers)
-  elif model_name == 'BPcm_super_skinny':
-    model = BPcm_super_skinny(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers)
   elif model_name == 'BPbi':
+    # Tn5 bias model (single-track); see README "Training the Tn5 bias model"
     model = BPbi(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers)
-  elif model_name == 'BPbi_shallow':
-    model = BPbi_shallow(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers)
   else:
-    print("model name is incorrect")
-    return -1 
+    print("model name is incorrect. Supported models: 'bpAITAC', 'BPbi'")
+    return -1
 
   for param_tensor in model.state_dict():
     print(param_tensor, "\t", model.state_dict()[param_tensor].size())

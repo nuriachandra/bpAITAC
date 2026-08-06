@@ -12,17 +12,8 @@ import matplotlib.pyplot as plt
 from utils.load_model import model_analysis_from_saved_model, get_predictions, load_model, load_data
 from plotting.plot_utils_bpaitac import histogram
 import os
-from models.BPcm import BPcm
 from models.bpAITAC import bpAITAC
-from models.BPcm_250 import BPcm_250
 from models.BPbi import BPbi
-from models.BPbi_shallow import BPbi_shallow
-from models.BPnetRep import BPnetRep
-from models.BPol import BPol
-from models.BPcm_skinny import BPcm_skinny
-from models.BPmp import BPmp
-from models.BPcm_super_skinny import BPcm_super_skinny
-from models.BPcm_bias0 import BPcm_bias0
 
 
 def parse_arguments():
@@ -57,8 +48,8 @@ def parse_arguments():
                         help='End position of OCR')
     parser.add_argument('--output_dir', type=str, default='output',
                         help='Output directory for the metrics and plot')
-    parser.add_argument('--model_type', type=str, default='BPcm', 
-                        help='The type of the model structure to be used. Currently only supports BPcm and BPnetRep')
+    parser.add_argument('--model_type', type=str, default='bpAITAC',
+                        help="The type of model structure to be used: 'bpAITAC' or 'BPbi' (Tn5 bias model)")
     parser.add_argument('--seq_len', type=int, default=998)
     parser.add_argument('--off_by_two', type=str, default="True")
     parser.add_argument('--get_complete_corr_metrics', action='store_true', default=False)
@@ -136,30 +127,13 @@ def eval_model(saved_model_path, n_celltypes, n_filters, infofile_path,
     plot_scalar_corr(metrics['scalar_corr'], output_dir, eval_set)
 
 def get_model_structure(model_type:str, n_filters, n_celltypes, bin_size=1, seq_len=998, off_by_two=True):
-    if model_type == "BPcm":
-        return BPcm(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, scalar_head_fc_layers=1)
     if model_type == "bpAITAC":
         return bpAITAC(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, scalar_head_fc_layers=1, off_by_two=off_by_two)
-    if model_type == "BPcm_250":
-        return BPcm_250(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, scalar_head_fc_layers=1, off_by_two=off_by_two)
-    elif model_type == "BPcm_bias0":
-        return BPcm_bias0(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, scalar_head_fc_layers=1)
-    elif model_type == "BPnetRep":
-        return BPnetRep(seq_len=seq_len, n_celltypes=n_celltypes, num_filters=n_filters)
-    elif model_type == 'BPol':
-        return BPol(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size)
-    elif model_type == 'BPmp':
-        return BPmp(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size)
-    elif model_type == 'BPcm_skinny':
-        return BPcm_skinny(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size)
-    elif model_type == 'BPcm_super_skinny':
-        return BPcm_super_skinny(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size)
     elif model_type == 'BPbi':
+        # Tn5 bias model (single-track); see README "Training the Tn5 bias model"
         return BPbi(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, scalar_head_fc_layers=1)
-    elif model_type == 'BPbi_shallow':
-        return BPbi_shallow(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, scalar_head_fc_layers=1)
     else:
-        raise Exception("The provided model type is not supported")
+        raise Exception("The provided model type is not supported. Supported models: 'bpAITAC', 'BPbi'")
 
 def main(): # Use main method to access eval_model through the command line
     args = parse_arguments()

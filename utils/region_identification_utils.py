@@ -120,27 +120,17 @@ def main():
     n_trials_to_use = None
 
     eval_set = 'validation'
-    info_path = '/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/info.txt'
-    names = load_names('/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/info.txt', eval_set)
-    
-    # For BP71
-    model1_dir = '/data/nchand/analysis/BPnetRep/BP71_L0_0/'
-    model2_dir = '/data/nchand/analysis/BPnetRep/BP71_L-1_1/'
-    output_dir = '/data/nchand/analysis/BPnetRep/BP71_analysis'
+    info_path = '/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/complete/memmap/info.txt'
+    names = load_names(info_path, eval_set)
+
+    # Point these at two sets of trained-model output directories to compare.
+    model1_dir = '/path/to/results/bpAITAC/model1_L0_0/'
+    model2_dir = '/path/to/results/bpAITAC/model2_L-1_1/'
+    output_dir = '/path/to/results/bpAITAC/comparison_analysis'
     label1='l=0.0'
     label2='l=0.1'
-    model_type = 'BPnetRep'
-    n_trials_to_use = 5 # TODO update when I have more
-
-    # For BP68
-    # model1_dir = '/data/nchand/analysis/BPcm/BP68_L0_0/'
-    # model2_dir = '/data/nchand/analysis/BPcm/BP68_L-1_5/'
-    # output_dir = '/data/nchand/analysis/BPcm/BP68_analysis'
-    # difference_label ='Difference in Pearson correlation at lambda=0.5 and lambda=0.0'
-    # n_trials_to_use = 5
-    # label1='l=0.0'
-    # label2='l=0.5'
-    # model_type = 'BPcm'
+    model_type = 'bpAITAC'
+    n_trials_to_use = 5
 
 
     os.makedirs(output_dir, exist_ok=True)
