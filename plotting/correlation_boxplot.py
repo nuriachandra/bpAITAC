@@ -398,10 +398,10 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # # FOR COMPLETE
 # n_celltypes = 90
 # # in chelan
-# val_info_path = '/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/info.txt'
+# val_info_path = '/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/info.txt'
 # # in hyak 
-# # val_info_path = '/gscratch/mostafavilab/nchand/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_4.3.23-2/memmap/info.txt'
-# # results_dir = '/gscratch/mostafavilab/nchand/results/analysis' # the directory where all the lambda files are housed in 
+# # val_info_path = '/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_4.3.23-2/memmap/info.txt'
+# # results_dir = '/path/to/results/analysis' # the directory where all the lambda files are housed in 
 
 # # default bin size and pooling etc
 # bin_size= 1
@@ -414,13 +414,13 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 
 # For BP6
 # model_name = 'BPnetRep'
-# results_dir = '/data/nchand/analysis/' # the directory where all the lambda files are housed in 
+# results_dir = '/path/to/results/' # the directory where all the lambda files are housed in 
 # lambda_dirs = ['BP6_LZ', 'BP6_L-17', 'BP6_L-15', 'BP6_L-13', 'BP6_L-12', 'BP6_L-11', 'BP6_L-9', 'BP6_L-7', 'BP6_L-5', 'BP6_L-3', 'BP6_L-1']
 # lambdas = [0, 10**(-17), 10**(-15), 10**(-13), 10**(-12), 10**(-11), 10**(-9), 10**(-7), 10**(-5), 10**(-3), 10**(-1)]# list of the corresponding lambda values in scientific notation
 # n_filters = 64
 
 # For BP13
-# results_dir = '/data/nchand/analysis/BPnetRep/'
+# results_dir = '/path/to/results/BPnetRep/'
 # lambda_dirs = ['BP13_LZ', 'BP13_L-10', 'BP13_L-4', 'BP13_L-2', 'BP13_L-1', 'BP13_L0_1', 'BP13_L1', 'BP13_L2', 'BP13_L4']
 # lambdas = [0, 10**(-10), 10**(-4), 10**(-2), 10**(-1), 10**(0), 10**(1), 10**(2), 10**(4)]# list of the corresponding lambda values in scientific notation
 # n_filters = 64
@@ -429,7 +429,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_name = 'BPcm'
 # model_number = 'BP17'
 # boxplot_iteration_number = '8T'
-# results_dir = '/data/nchand/analysis/BPcm/' # the directory where all the lambda files are housed in 
+# results_dir = '/path/to/results/BPcm/' # the directory where all the lambda files are housed in 
 # n_filters = 300
 
 # for BP16
@@ -471,7 +471,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP22'
 # eval_set = 'training'
 # boxplot_iteration_number = 'training'
-# results_dir = '/data/nchand/analysis/BPcm/' # the directory where all the lambda files are housed in 
+# results_dir = '/path/to/results/BPcm/' # the directory where all the lambda files are housed in 
 # n_filters = 300
 # lambda_dirs = ['BP22_L0_0', 'BP22_L0_0.5', 'BP22_L0_0.75', 'BP22_L0_1']
 # lambdas = [0, 0.5, 0.75, 1]
@@ -482,7 +482,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP27'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(4)
-# results_dir = '/data/nchand/analysis/BPcm/'
+# results_dir = '/path/to/results/BPcm/'
 # n_filters = 300
 # base_dir = 'BP27_1_L0'
 # lambdas = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
@@ -502,7 +502,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP27'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(4)
-# results_dir = '/data/nchand/analysis/BPcm/'
+# results_dir = '/path/to/results/BPcm/'
 # n_filters = 300
 # base_dir = 'BP27_1_L0'
 # lambdas = [0, 0.1]
@@ -521,7 +521,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP27'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(11)
-# results_dir = '/data/nchand/analysis/BPcm/'
+# results_dir = '/path/to/results/BPcm/'
 # n_filters = 300
 # base_dir = 'BP27_1_L0'
 # lambda_dirs = ['BP27_1_L0_0.5', 'BP27_3_L0_0.5', 'BP27_5_L0_0.5', 'BP27_20_L0_0.5']
@@ -537,7 +537,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP28'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(1)
-# results_dir = '/data/nchand/analysis/BPcm/tooBig/' # it's on hyak
+# results_dir = '/path/to/results/BPcm/tooBig/' # it's on hyak
 # n_filters = 300
 # lambdas = [0.9, 0.9, 0.9, 0.9, 0.9]
 # dirs = ['BP28_1_L0_0.9', 'BP28_2_L0_0.9', 'BP28_3_L0_0.9', 'BP28_5_L0_0.9', 'BP28_10_L0_0.9']
@@ -554,7 +554,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP29'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(1)
-# results_dir = '/data/nchand/analysis/BPcm/tooBig/'
+# results_dir = '/path/to/results/BPcm/tooBig/'
 # n_filters = 1000
 # dirs = ['BP29_1_L0_0.9', 'BP29_2_L0_0.9', 'BP29_3_L0_0.9', 'BP29_5_L0_0.9', 'BP29_10_L0_0.9', 'BP29_20_L0_0.9']
 # bin_sizes = [1, 2, 3, 5, 10, 20]
@@ -571,7 +571,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP33'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(2)
-# results_dir = '/data/nchand/analysis/BPcm/'
+# results_dir = '/path/to/results/BPcm/'
 # n_filters = 300
 # dirs = ['BP33_1_L0_0.9', 'BP33_2_L0_0.9', 'BP33_3_L0_0.9', 'BP33_5_L0_0.9', 'BP33_10_L0_0.9', 'BP33_20_L0_0.9']
 # # dirs = ['BP33_1_L0_0.9', 'BP33_5_L0_0.9', 'BP33_10_L0_0.9', 'BP33_20_L0_0.9']
@@ -587,7 +587,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP56'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(2)
-# results_dir = '/data/nchand/analysis/BPcm/'
+# results_dir = '/path/to/results/BPcm/'
 # n_filters = 300
 # base_dir = 'BP56_20_L'
 # lambdas = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1.0]
@@ -616,7 +616,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP60'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(2)
-# results_dir = '/data/nchand/analysis/BPcm/'
+# results_dir = '/path/to/results/BPcm/'
 # n_filters = 300
 # base_dir = ''
 # lambdas = [0.0, 10**-3, 10**-2, 8*10**-2, 0.4, 0.5, 0.6, 0.7]
@@ -640,21 +640,21 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 
 
 # for the all celltype 50000 OCR sample data
-# celltypes='/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/sample_random5000_allcell_bias_corrected_normalized_5.28.23/memmap/cell_names.npy'
-# val_info_path='/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/sample_random5000_allcell_bias_corrected_normalized_5.28.23/memmap/info.txt'
+# celltypes='/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/sample_random5000_allcell_bias_corrected_normalized_5.28.23/memmap/cell_names.npy'
+# val_info_path='/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/sample_random5000_allcell_bias_corrected_normalized_5.28.23/memmap/info.txt'
 
 # complete data in Chelan
-# val_total_counts = np.memmap('/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/val.total_counts.dat', 
+# val_total_counts = np.memmap('/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/val.total_counts.dat', 
 #                              dtype='float32', shape=(28329, 90))
-# ocr_names = np.memmap('/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/val.names.dat', dtype='<U26', shape=(28329))
-# celltypes = np.load("/data/nchand/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.celltypes.npy")
+# ocr_names = np.memmap('/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/val.names.dat', dtype='<U26', shape=(28329))
+# celltypes = np.load("/path/to/data/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.celltypes.npy")
 
 # BP65
 # model_name = 'BPcm'
 # model_number = 'BP65'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(1)
-# results_dir = '/data/nchand/analysis/BPcm/'
+# results_dir = '/path/to/results/BPcm/'
 # n_filters = 300
 # lambdas = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
@@ -684,7 +684,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP66'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(1)
-# results_dir = '/data/nchand/analysis/BPcm/'
+# results_dir = '/path/to/results/BPcm/'
 # n_filters = 300
 # lambdas = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.9, 1.0]
 
@@ -712,7 +712,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP68'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(2)
-# results_dir = '/data/nchand/analysis/BPcm/'
+# results_dir = '/path/to/results/BPcm/'
 # n_filters = 300
 # lambdas = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.9, 1.0]
 
@@ -741,7 +741,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP68'
 # eval_set = 'testing'
 # boxplot_iteration_number = "t_1"
-# results_dir = '/data/nchand/analysis/BPcm/'
+# results_dir = '/path/to/results/BPcm/'
 # n_filters = 300
 # lambdas = [0, 0.5]
 
@@ -762,7 +762,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP69'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(1)
-# results_dir = '/data/nchand/analysis/BPcm/'
+# results_dir = '/path/to/results/BPcm/'
 # n_filters = 300
 # lambdas = [0, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 0.7, 0.9, 1.0]
 
@@ -791,7 +791,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP70'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(1)
-# results_dir = '/data/nchand/analysis/BPnetRep/'
+# results_dir = '/path/to/results/BPnetRep/'
 # n_filters = 300
 # lambdas = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.7, 0.8]
 
@@ -819,7 +819,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP71'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(2)
-# results_dir = '/data/nchand/analysis/BPnetRep/'
+# results_dir = '/path/to/results/BPnetRep/'
 # n_filters = 300
 # lambdas = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.7, 0.9, 1]
 
@@ -847,7 +847,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP73'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(1)
-# results_dir = '/data/nchand/analysis/BPnetRep/'
+# results_dir = '/path/to/results/BPnetRep/'
 # n_filters = 300
 # lambdas = [0.0, 0.1, 0.2, 0.25, 0.3, 0.4, 0.5, 0.7]
 
@@ -874,7 +874,7 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # model_number = 'BP74'
 # eval_set = 'validation'
 # boxplot_iteration_number = str(1)
-# results_dir = '/data/nchand/analysis/BPnetRep/'
+# results_dir = '/path/to/results/BPnetRep/'
 # n_filters = 300
 # lambdas = [0.0, 0.3, 0.5, 0.9]
 
@@ -895,14 +895,14 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 
 
 # for the all celltype 50000 OCR sample data
-# celltypes='/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/sample_random5000_allcell_bias_corrected_normalized_5.28.23/memmap/cell_names.npy'
-# val_info_path='/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/sample_random5000_allcell_bias_corrected_normalized_5.28.23/memmap/info.txt'
+# celltypes='/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/sample_random5000_allcell_bias_corrected_normalized_5.28.23/memmap/cell_names.npy'
+# val_info_path='/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/sample_random5000_allcell_bias_corrected_normalized_5.28.23/memmap/info.txt'
 
 # complete data in Chelan
-# val_total_counts = np.memmap('/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/val.total_counts.dat', 
+# val_total_counts = np.memmap('/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/val.total_counts.dat', 
 #                              dtype='float32', shape=(28329, 90))
-# ocr_names = np.memmap('/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/val.names.dat', dtype='<U26', shape=(28329))
-# celltypes = np.load("/data/nchand/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.celltypes.npy")
+# ocr_names = np.memmap('/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/val.names.dat', dtype='<U26', shape=(28329))
+# celltypes = np.load("/path/to/data/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.celltypes.npy")
 
 
 # n_filters = 300
@@ -912,8 +912,8 @@ def get_cell_metrics(val_total_counts:np.ndarray, celltypes:np.ndarray, ocr_name
 # for sample
 # n_celltypes = 6
 # n_filters = 64
-# val_info_path = '/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/sample_bias_corrected_normalized_3.7.23/memmap/info.txt'
-# results_dir = '/homes/gws/nchand/MostafaviLab/results/BPnetRep/'
+# val_info_path = '/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/sample_bias_corrected_normalized_3.7.23/memmap/info.txt'
+# results_dir = '/path/to/results/results/BPnetRep/'
 # lambda_dirs = ['BP6_L-1_1/sample', 'BP6_L-20/sample'] # list of the directory names
 # lambdas = [10**(-1), 10**(-20)]
 # model_names=lambda_dirs
@@ -950,10 +950,10 @@ def main():
     # FOR COMPLETE
     n_celltypes = 90
     # in chelan
-    # val_info_path = '/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/complete_shallow_deprotinated_bias_quantile_normalized_4.1.25/memmap/info.txt'
+    # val_info_path = '/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_shallow_deprotinated_bias_quantile_normalized_4.1.25/memmap/info.txt'
     # in hyak 
-    # val_info_path = '/gscratch/mostafavilab/nchand/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_4.3.23-2/memmap/info.txt'
-    # results_dir = '/gscratch/mostafavilab/nchand/results/analysis' # the directory where all the lambda files are housed in 
+    # val_info_path = '/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_4.3.23-2/memmap/info.txt'
+    # results_dir = '/path/to/results/analysis' # the directory where all the lambda files are housed in 
 
     # default bin size and pooling etc
     bin_size= 1
@@ -968,12 +968,12 @@ def main():
     model_number = 'BP203'
     eval_set = 'testing'
     boxplot_iteration_number = "v5"
-    results_dir = '/data/nchand/analysis/BPcm_250/'
+    results_dir = '/path/to/results/BPcm_250/'
     n_filters = 300
     lambdas = [0, 0.5]
     # lambdas = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
     n_celltypes = 90
-    val_info_path = '/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/complete_shallow_deprotinated_bias_quantile_normalized_4.1.25/memmap/info.txt'
+    val_info_path = '/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_shallow_deprotinated_bias_quantile_normalized_4.1.25/memmap/info.txt'
 
     lambda_dirs = [
         "BP200_L0_0",

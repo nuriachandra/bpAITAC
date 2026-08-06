@@ -1,7 +1,7 @@
 import torch
 import pandas as pd
 from torch import nn
-from models.BPcm import BPcm
+from models.bpAITAC import bpAITAC
 from utils.inference_utils import load_data
 from utils.inference_utils import get_least_utilized_gpu
 from utils.MemmapDataset import MemmapDataset
@@ -19,10 +19,10 @@ print("DEVICE is", DEVICE)
 
 def load_model(saved_model_path, n_celltypes=90, n_filters=64, bin_size:int = 1, bin_pooling_type:nn.Module=nn.MaxPool1d, scalar_head_fc_layers:int=1, model_structure:nn.Module=None, verbose:bool=True):
   """
-    By default loads a BPcm model with the specified number of filters etc.
-    If model_structure is used instead, loads the parameters into that model 
+    By default loads a bpAITAC model with the specified number of filters etc.
+    If model_structure is used instead, loads the parameters into that model
     example paths:
-    saved_model_path = '/data/nchand/analysis/BP6_L-11/04-16-2023.21.51/best_model'
+    saved_model_path = 'trained_models/06-16-2025.12.17/best_model'
   """
   print("DEVICE is", DEVICE)
   with torch.no_grad():
@@ -30,7 +30,7 @@ def load_model(saved_model_path, n_celltypes=90, n_filters=64, bin_size:int = 1,
     if verbose:
       print("MODEL STRUCTURE", model_structure)
     if model_structure is None:
-      model =  BPcm(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers)
+      model =  bpAITAC(seq_len=seq_len, num_filters=n_filters, n_celltypes=n_celltypes, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers)
     else:
       model = model_structure
     model.load_state_dict(torch.load(saved_model_path))
@@ -159,7 +159,7 @@ def get_scalar_correlation(saved_model_path, n_celltypes=90, info_file_path='inf
   # get dataloaders with the train and validation dat in them
   with torch.no_grad():
     train_loader, val_loader, test_loader = load_data(info_file_path, batch_size=100)
-    # train_loader, val_loader = load_data('/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/sample_bias_corrected_normalized_3.7.23/memmap/info.txt', batch_size=100)
+    # train_loader, val_loader = load_data('/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/sample_bias_corrected_normalized_3.7.23/memmap/info.txt', batch_size=100)
 
     # MAKE PREDICTIONS AND RECORD CORRELATION
     scalar_predictions = torch.zeros(0, n_celltypes)
@@ -193,9 +193,9 @@ def model_analysis_from_saved_model(saved_model_path:str, n_celltypes:int, n_fil
                   ocr_start:int=375, ocr_end:int=625, model_structure:nn.Module=None, seq_len=998, 
                   get_complete_corr_metrics=False):
   """
-  This method loads the given saved model (assumes BPcm or the model assumed by load_model  with the
+  This method loads the given saved model (assumes bpAITAC, or the model assumed by load_model, with the
   class constant number of celltypes and sequence length)
-  If model_structure is provided, then loads that type of model instead, overriding BPcm default
+  If model_structure is provided, then loads that type of model instead, overriding the bpAITAC default
   Then it makes model predictions on the validation dataset 
   and computes the scalar_pearson correlation (w.r.t different celltypes)/ 
   profile base-pair pearson correlation (w.r.t sequence )/JSD of profile
@@ -203,7 +203,7 @@ def model_analysis_from_saved_model(saved_model_path:str, n_celltypes:int, n_fil
     saved_model_path file path of model that will be loaded
     infofile_path path to the info.txt file that has information on the 
         location of the memmory mapped data
-        ex) '/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/info.txt'
+        ex) '/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/info.txt'
   """
   model = load_model(saved_model_path, n_celltypes=n_celltypes, n_filters=n_filters, bin_size=bin_size, bin_pooling_type=bin_pooling_type, scalar_head_fc_layers=scalar_head_fc_layers, model_structure=model_structure)
   # LOAD THE DATA
@@ -234,7 +234,7 @@ def model_analysis(model:nn.Module, train_loader, val_loader, test_loader,
     saved_model_path file path of model that will be loaded
     infofile_path path to the info.txt file that has information on the 
         location of the memmory mapped data
-        ex) '/data/nchand/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/info.txt'
+        ex) '/path/to/data/ImmGen/mouse/BPprofiles1000/memmaped/complete_bias_corrected_normalized_3.7.23/memmap/info.txt'
     get_scalar_corr: if true, will compute and return the scalar pearson corr
     get_pearson_corr: if true, will compute and return the profile pearson corr
     get_jsd: if true, will compute and return the profile jsd

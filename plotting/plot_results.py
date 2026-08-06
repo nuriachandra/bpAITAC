@@ -69,7 +69,7 @@ def all_model_correlations():
     Goes through all the files associated with each of the models we
     are interested in and finds the best correlation.
     """
-    model_type_path='/homes/gws/nchand/MostafaviLab/results/BPme'
+    model_type_path='/path/to/results/results/BPme'
     models = ['M7_L0', 'M7_L2', 'M7_L3', 'M7_L4', 'M7_L10']
     correlations = []
     for model in models:
@@ -111,28 +111,28 @@ def barplot_correlations(correlations, model_names, out_save_path):
 
 def plot_specific_correlations():
     names= ['BPNet Lambda=0', 'BPNet Lambda=10^3', 'BPNet Lambda=10^10']
-    dirs = ['/homes/gws/nchand/MostafaviLab/results/BPnetRep/T38/complete/12-29-2022.23.01',
-            '/homes/gws/nchand/MostafaviLab/results/BPnetRep/T38/complete/01-04-2023.13.29',
-            '/homes/gws/nchand/MostafaviLab/results/BPnetRep/T38/complete/01-05-2023.11.17']
+    dirs = ['/path/to/results/results/BPnetRep/T38/complete/12-29-2022.23.01',
+            '/path/to/results/results/BPnetRep/T38/complete/01-04-2023.13.29',
+            '/path/to/results/results/BPnetRep/T38/complete/01-05-2023.11.17']
     corrs = []
     for folder in dirs:
         path = os.path.join(folder, 'val_correlation.txt')
         print(path)
         corrs+= [get_correlations(path)]
-    barplot_correlations(corrs, names, '/homes/gws/nchand/MostafaviLab/results/BPnetRepBarPlt')
+    barplot_correlations(corrs, names, '/path/to/results/results/BPnetRepBarPlt')
     print(corrs)
 
 def plot_averages():
     # FOR AITAC VS BPNET
     # models = ['BP1_L0', 'BP1_L3', 'BP1_L10']
     # names = ['AI-TAC', 'BPNet Lambda=0', 'BPNet Lambda=10^3', 'BPNet Lambda=10^10']
-    # model_type_path = '/homes/gws/nchand/MostafaviLab/results/BPnetRep'
+    # model_type_path = '/path/to/results/results/BPnetRep'
     # correlations = [0.325]
 
     # FOR T46 - modified BPnet
     models = ['T46_200', 'T46_400']
     names = ['AITAC', '200 filters', '400 filters']
-    model_type_path = '/homes/gws/nchand/MostafaviLab/results/BPnetRep'
+    model_type_path = '/path/to/results/results/BPnetRep'
     correlations = [0.325]
     for model in models:
         dir_path = os.path.join(model_type_path, model)+ '/complete'
@@ -155,13 +155,13 @@ def plot_averages():
         correlations += [avg]
 
     print(correlations)
-    barplot_correlations(correlations, names, '/homes/gws/nchand/MostafaviLab/results/BPnetRep/T46_correlations')
+    barplot_correlations(correlations, names, '/path/to/results/results/BPnetRep/T46_correlations')
 
 # def box_plot():
-#     hyak_info_file_dir="/gscratch/mostafavilab/nchand/bpAITAC/data_train_test/sample_normalized_250center_1.17.23/memmap/info.txt"
-#     celltype_path = "/gscratch/mostafavilab/nchand/data/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.celltypes.npy"
+#     hyak_info_file_dir="/path/to/bpAITAC/data_train_test/sample_normalized_250center_1.17.23/memmap/info.txt"
+#     celltype_path = "/path/to/data/ImmGen/mouse/BPprofiles1000/ImmGenATAC1219.peak_matched_in_sorted.sl10004sh-4.celltypes.npy"
 #     celltypes_list = np.load(celltype_path)
-#     model_path = "/gscratch/mostafavilab/nchand/results/BPnetRep/BP1_L10/complete/01-18-2023.08.17/best_model"
+#     model_path = "/path/to/results/BPnetRep/BP1_L10/complete/01-18-2023.08.17/best_model"
 #     model = BPnetRep(1000, celltypes_list)
 #     get_all_correlations(model_path, model, hyak_info_file_dir)
 

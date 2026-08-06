@@ -12,7 +12,7 @@
 # 5) path of pickled dictionary that maps peak names to chromosome name
 # 6) directory where the output data will be stored and the memmaps folder will be created
 
-data_dir= "/data/nchand/" # TODO FILL in
+data_dir= "/path/to/data/" # TODO FILL in
 aitac_setting='False'
 cell_mask='null'
 off_by_two='True'
